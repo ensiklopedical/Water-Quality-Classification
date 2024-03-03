@@ -54,11 +54,44 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
 - ```python
   dataset.shape
   ```
+  Kode diatas memiliki output:
+  ```python
+  (3276, 10)
+  ```
 - ```python
    dataset.keys()
   ```
-- ``` dataset.info() ```
-- ``` dataset.describe() ```
+  Kode diatas memiliki output:
+  ```python
+  Index(['ph', 'Hardness', 'Solids', 'Chloramines', 'Sulfate', 'Conductivity',
+       'Organic_carbon', 'Trihalomethanes', 'Turbidity', 'Potability'],
+      dtype='object')
+  ```
+- ```python
+   dataset.info()
+  ```
+  Kode diatas memiliki output:
+  ```python
+  RangeIndex: 3276 entries, 0 to 3275
+  Data columns (total 10 columns):
+   #   Column           Non-Null Count  Dtype  
+  ---  ------           --------------  -----  
+   0   ph               2785 non-null   float64
+   1   Hardness         3276 non-null   float64
+   2   Solids           3276 non-null   float64
+   3   Chloramines      3276 non-null   float64
+   4   Sulfate          2495 non-null   float64
+   5   Conductivity     3276 non-null   float64
+   6   Organic_carbon   3276 non-null   float64
+   7   Trihalomethanes  3114 non-null   float64
+   8   Turbidity        3276 non-null   float64
+   9   Potability       3276 non-null   int64  
+  dtypes: float64(9), int64(1)
+  ```
+- ```python
+   dataset.describe()
+  ```
+  Kode diata memiliki output:
   
 |       |         ph |   Hardness |    Solids |   Chloramines |   Sulfate |   Conductivity |   Organic_carbon |   Trihalomethanes |   Turbidity |   Potability |
 |:------|-----------:|-----------:|----------:|--------------:|----------:|---------------:|-----------------:|------------------:|------------:|-------------:|
@@ -70,6 +103,7 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
 | 50%   |    7.03675 |   196.968  | 20927.8   |       7.1303  |  333.074  |       421.885  |         14.2183  |           66.6225 |    3.95503  |     0        |
 | 75%   |    8.06207 |   216.667  | 27332.8   |       8.11489 |  359.95   |       481.792  |         16.5577  |           77.3375 |    4.50032  |     1        |
 | max   |   14       |   323.124  | 61227.2   |      13.127   |  481.031  |       753.343  |         28.3     |          124      |    6.739    |     1        |
+  
 
 - ``` dataset.isnull().sum() ```
 - 
