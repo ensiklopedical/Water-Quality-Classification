@@ -308,10 +308,44 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       ```
 
     - Imbalance Data
-      Imbalance data adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan oversampling atau undersampling
+      Imbalance data adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan oversampling atau undersampling.
 
       **Alasan**: Hal ini dapat menjadi masalah adalah karena imbalance data dapat menyebabkan model bias terhadap kelas mayoritas (lebih banyak) dan menghasilkan performa yang buruk pada kelas minoritas lebih sedikit)
-      
+
+      Berikut ini adalah untuk memeriksa ada berapa baris data untuk masing-masing kelas pada kolom ```'Potability'```:
+      ```python
+        count_0 = dataset[dataset['Potability'] == 0].shape[0]
+        count_1 = dataset[dataset['Potability'] == 1].shape[0]
+        print("Jumlah baris data yang berinilai '0' ada sebanyak: " + str(count_0))
+        print("Jumlah baris data yang berinilai '0' ada sebanyak: " + str(count_1))
+      ```
+ 
+      Berikut ini adalah hasilnya:
+      ```python
+        Jumlah baris data yang berinilai '0' ada sebanyak: 1431
+        Jumlah baris data yang berinilai '1' ada sebanyak: 883
+      ```
+
+      Dalam hal ini, perlunya dilakukannya undersampling terhadap kelas ```'0'``` agar menyesuaikan jumlah baris datanya dengan kelas ```'1'```
+ 
+      Berikut ini adalah bagian untuk melakukan proses undersampling:
+      ```python
+        dataset = dataset.groupby('Potability').apply(lambda x: x.sample(min(len(x), min(count_0, count_1)))).reset_index(drop=True)
+      ```
+     
+      Berikut ini adalah untuk memeriksa ada berapa baris data untuk masing-masing kelas pada kolom ```'Potability'``` setelah dilakukan undersampling:
+      ```python
+        count_0 = dataset[dataset['Potability'] == 0].shape[0]
+        count_1 = dataset[dataset['Potability'] == 1].shape[0]
+        print("Jumlah baris data yang berinilai '0' ada sebanyak: " + str(count_0))
+        print("Jumlah baris data yang berinilai '0' ada sebanyak: " + str(count_1))
+      ```
+
+      Berikut ini adalah hasil setelah dilakukannya undesampling:
+      ```python
+      Jumlah baris data yang berinilai '0' ada sebanyak: 883
+      Jumlah baris data yang berinilai '1' ada sebanyak: 883    
+      ```
      
 - Train Test Split
 - Data Transformation
