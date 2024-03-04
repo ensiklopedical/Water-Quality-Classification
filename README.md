@@ -30,11 +30,11 @@ Angka konsumsi air minum yang tidak layak di Indonesia masih tinggi. Maka dari i
 
 # Data Undestanding
 
-_Dataset_ yang digunakan untuk pembangunan model _machine learning_ ini adalah _dataset_ "Water Quality and Potability" yang tersedia di situs web [Kaggle](https://www.kaggle.com/). _Dataset_ tersebut adalah _dataset_ kuantitatif yang berisi kolom-kolom yang dapat menentukan sebuah kualitas air layak diminum atau tidak.
+_Dataset_ yang digunakan untuk pembangunan model _machine learning_ ini adalah _dataset_ "Water Quality and Potability" yang tersedia di situs web [Kaggle](https://www.kaggle.com/). _Dataset_ tersebut adalah _dataset_ kuantitatif yang berisi kolom-kolom yang dapat menentukan sebuah kualitas air layak diminum atau tidak. _Dataset_ ini memiliki 3276 baris dan 10 kolom data.
 
 _Dataset_ ini cocok untuk membangun model _supervised learning_, khususnya _binary classification_. Dalam kasus ini adalah untuk mengklasifikasinya sampel sebuah air layak diminum (_Potable_) atau tidak layak diminum (_Not Potable_)
 
-Dataset tersebut dapat diunduh [disini](https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability).
+_Dataset_ tersebut dapat diunduh [disini](https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability).
 
 Berikut ini adalah informasi lainnya mengenai variabel-variabel yang terdapat di dataset tersebut:
 
@@ -51,6 +51,8 @@ Berikut ini adalah informasi lainnya mengenai variabel-variabel yang terdapat di
 - 'Potability': Variabel target. menunjukkan potabilitas air dengan nilai 1 (layak minum) dan 0 (tidak layak minum).
 
 Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _exploratory data analysis_ dan Visualisasi Data.
+
+**_Exploratory Data Analysis_**
 - ```python
   dataset.shape
   ```
@@ -58,6 +60,8 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
   ```python
   (3276, 10)
   ```
+
+  Berdasarkan _output_ tersebut, didapatkan informasi bahwa dataset ini memiliki **3276 baris** dan **10 kolom** data sesuai dengan dengan keterangan yang tertera diatas. Pada bagian ini, belum dapat diketahui **nama** dari **kolom-kolom** yang ada.
 - ```python
    dataset.keys()
   ```
@@ -67,6 +71,8 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
        'Organic_carbon', 'Trihalomethanes', 'Turbidity', 'Potability'],
       dtype='object')
   ```
+
+  Berdasarkan _output_ tersebut, didapatkan informasi lebih lanjut bahwa dataset ini memiliki 10 kolom sesuai dengan keterangan yang tertera diatas. Pada bagian ini, belum dapat diketahui **jumlah** dan **tipe data** dari tiap kolom.
 - ```python
    dataset.info()
   ```
@@ -88,10 +94,12 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
    9   Potability       3276 non-null   int64  
   dtypes: float64(9), int64(1)
   ```
+
+   Berdasarkan _output_ tersebut, didapatkan informasi mengenai jumlah data dan tipe data dari setiap kolom yang ada. Ada beberapa kolom yang tidak miliki jumlah data sesuai dengan total baris, yaitu 3276 baris. Hal ini mengindikasikan adanya _missing value_. Kemudian, hanya 1 kolom yang bertipe ```int64```, yaitu kolom ```'Potability'```. Kolom lainnya bertipe ```float64```.
 - ```python
    dataset.describe()
   ```
-  Kode diata memiliki output:
+  Kode diatas memiliki output:
   
 |       |         ph |   Hardness |    Solids |   Chloramines |   Sulfate |   Conductivity |   Organic_carbon |   Trihalomethanes |   Turbidity |   Potability |
 |:------|-----------:|-----------:|----------:|--------------:|----------:|---------------:|-----------------:|------------------:|------------:|-------------:|
@@ -104,9 +112,58 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
 | 75%   |    8.06207 |   216.667  | 27332.8   |       8.11489 |  359.95   |       481.792  |         16.5577  |           77.3375 |    4.50032  |     1        |
 | max   |   14       |   323.124  | 61227.2   |      13.127   |  481.031  |       753.343  |         28.3     |          124      |    6.739    |     1        |
   
+   Berdasarkan _output_ tersebut, didapatkan informasi mengenai statistika deskriptif dari _dataset_ yang digunakan. Berikut ini adalah keterangan untuk setiap bagian:
+   - ```count``` : Jumlah data dari sebuah kolom
+   - ```mean``` : Rata-rata dari sebuah kolom
+   - ```std``` : Standar deviasi dari sebuah kolom
+   - ```min``` : Nilai terendah pada sebuah kolom
+   - ```25%``` : Nilai kuartil pertama (Q1) dari sebuah kolom
+   - ```50%``` : Nilai kuartil kedua (Q2) atau median atau nilai tengah dari sebuah kolom
+   - ```75%``` : Nilai kuartil ketiha (Q3) dari sebuah kolom
+   - ```max``` : Nilai tertinggi pada sebuah kolom   
+   
+- ```python
+  dataset.isnull().sum()
+  ```
+  
+  ```python
+  
+  ph                 491
+  Hardness             0
+  Solids               0
+  Chloramines          0
+  Sulfate            781
+  Conductivity         0
+  Organic_carbon       0
+  Trihalomethanes    162
+  Turbidity            0
+  Potability           0
+  dtype: int64
+  ```
+  Berdasarkan _output_ tersebut, ditemukan beberapa _missing value_ pada beberapa variabel, yaitu ```pH```, ```Sulfate```, ```Trihalomethanes```. _Missing value_ perlu ditangani agar tidak berdampak buruk kepada model yang akan dibuat.
 
-- ``` dataset.isnull().sum() ```
-- 
+**Visualisasi Data**
+  - Univariate Analysis
+    
+    ![Univariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7d02cde4-cc22-49f7-ba8f-34bca9b09f3b)
+    <div align="center">Gamabar 1a - Univariate Analysis Categorical Column</div>
+    Penjelasan:
+
+    ![Univariate](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/629564a6-dbbe-4199-984d-4af686952318)
+    <div align="center">Gamabar 1b - Univariate Analysis Numeric Column</div>
+    Penjelasan:
+    
+
+  - Multivariate Analysis
+
+    ![Multivariate-1](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/de724feb-5c4b-4339-b6f8-9ed31affcf4c)
+    <div align="center">Gamabar 2a - Multivariate Analysis Categorical Column - Every Numeric Column</div>
+
+    ![Multivariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/bac7770e-d08d-464a-b56d-0e2ee19f2761)
+    <div align="center">Gamabar 2b - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+  - Correlation
+  - Missing Value
+  
 # Data Preparation
 # Modelling
 # Evaluation
