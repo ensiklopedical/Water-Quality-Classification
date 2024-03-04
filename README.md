@@ -155,15 +155,15 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
     
     Berdasarkan ```Gambar 1b```, gambar ini menampilkan setiap kolom numerik yang ada pada dataset, seperti ```pH```, ```Hardness```, ```Solids```, ```Chrolamines```, ```Sulfate```, ```Conductivity```, ```Organic_carbon```, ```Trihalomethanes```, ```Turbidity```. Dari semua kolom yang ditampilkan, hanya kolom ```Solids``` dan ```Conductivity``` yang memiliki skewness ke arah kiri. Berikut adalah informasi singkat yang didapatkan dari visualisasi diatas:
 
-    - ```pH```: Tingkat pH air. 
-    - ```Hardness```: Ukuran kandungan mineral. 
-    - ```Solids```: Total padatan terlarut dalam air. 
-    - ```Chloramines```: Konsentrasi kloramin dalam air. 
-    - ```Sulfate```: Konsentrasi sulfat dalam air. 
-    - ```Conductivity```: Konduktivitas listrik di air. 
-    - ```Organic_carbon```: Kandungan karbon organik dalam air. 
-    - ```Trihalomethanes```: Konsentrasi trihalometan dalam air. 
-    - ```Turbidity```: Tingkat kekeruhan, ukuran kejernihan air. 
+    - ```pH```: Tingkat pH berkisar antara 0 hingga 14, dengan sebagian besar sampel memiliki pH sekitar 7, yang merupakan netral. 
+    - ```Hardness```: Kesadahan air bervariasi, dengan sejumlah besar sampel menunjukkan tingkat kesadahan sekitar 200. 
+    - ```Solids```: Terdapat kisaran total padatan terlarut dalam sampel, dengan konsentrasi puncak mendekati 20.000.
+    - ```Chloramines```: Kadar kloramin dalam sampel mencapai puncaknya mendekati 7 atau 8. 
+    - ```Sulfate```: Konsentrasi sulfat mencapai puncaknya sekitar 300.
+    - ```Conductivity```: Konduktivitas sampel menunjukkan puncak pusat mendekati 400.
+    - ```Organic_carbon```: Nilai paling umum untuk kandungan karbon organik adalah sekitar 14 hingga 15.
+    - ```Trihalomethanes```: Frekuensi kadar trihalomethane paling tinggi sekitar 65 hingga 70.
+    - ```Turbidity```: Tingkat kekeruhan mencapai puncaknya sekitar 3,5. 
 
   - Multivariate Analysis
 
@@ -172,18 +172,83 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
 
     ![Multivariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/bac7770e-d08d-464a-b56d-0e2ee19f2761)
     <div align="center">Gambar 2b - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+
+    Berdasarkan gambar ```Gambar 2a``` dan ```Gambar 2b```, dapat terlihat nyaris semua variabel berkumpul di tengah dan tidak menunjukkan karakteristik atau pola khusus terhadap variabel label, yaitu ```'Potability'```. Bahkan, pada ```Gambar 2b``` sekalipun yang sudah di kategorikan berdasarkan ```0``` dan ```1``` (ditandai dengan warna oren dan biru) masih tidak terlihat karakterisik atau pola untuk _value_ pada label tertentu. Kejadian ini mengindikasikan rendahnya korelasi antar fitur, bahkan dengan variabel label sekalipun.
+
     
   - Correlation
 
     ![Correlation](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/160fd61a-cddd-4c72-8f53-8def354bd3dd)
     <div align="center">Gambar 3a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+
+    Berdasarkan ```Gambar 3a```, terlihat bahwa kolom ```pH```, ```Conductivity```, ```Trihalomethanes```, ```Turbidity``` memiliki skor korelasi yang paling kecil terhadap label. Kolom yang semacam ini baiknya di-drop saja untuk meringankan beban komputasi dan mengurangi dimensi dari dataset yang akan digunakan dalam pelatihan model.
     
   - Missing Value
 
     ![Missing Value](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7302ab07-57ef-4147-a3b6-ed75f87561a5)
     <div align="center">Gambar 4a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+
+    Berdasarkan ```Gambar 4a```, terlihat jelas bahwa memang terdapat banyak kekosongan data atau _missing value_ pada ketiga kolom, yaitu ```Sulfate```, ```ph```, dan ```Trihalomethanes```. Kondisi ini perlu tindakan lebih lanjut agar tidak mempengaruhi performa model.
     
 # Data Preparation
+Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian data mentah ke dalam format yang dapat dipahami oleh algoritma pembelajaran mesin. Berikut ini adalah **urutan** langkah-langkah Data Preparation yang dilakukan beserta penjelasan dan alasannya:
+
+- Data Cleaning
+
+  ```python
+
+  ```
+  
+  Data cleaning adalah adalah langkah penting dalam proses Machine Learning karena melibatkan identifikasi dan penghapusan data yang hilang, duplikat, atau tidak relevan yang terdapat pada dataset. Proses ini memiliki berbagai langkah yang perlu dilakukan supaya dataset siap digunakan untuk pembangunan model Machine Learning.
+    
+  **Alasan**: Data Cleaning diperlukan agar data yang digunakan akurat, konsisten, dan bebas kesalahan, karena data yang salah atau tidak konsisten dapat berdampak negatif terhadap performa model Machine Learning
+    - Detection and Removal Duplicates
+      
+      Data duplikat adalah baris data yang sama persis untuk setiap variabel yang ada. Dataset yang digunakan perlu diperiksa juga apakah dataset memiliki data yang sama atau data duplikat. Jika ada, maka data tersebut harus ditangani dengan menghapus data duplikat tersebut.
+
+      **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan overfitting. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
+
+      Berikut ini adalah proses pendeteksian dan penghapusan data duplikatnya:
+      ```python
+      # Cek baris duplikat dalam dataset
+      duplicates = dataset.duplicated()
+      
+      # Hitung jumlah baris duplikat
+      duplicate_count = duplicates.sum()
+      
+      # Cetak jumlah baris duplikat
+      print(f"Number of duplicate rows: {duplicate_count}")
+
+      ```
+
+      Berikut ini adalah hasilnya:
+
+      ```python
+        Number of duplicate rows: 0
+      ```
+
+      Berdasarkan hasil tersebut, tidak ditemukan adanya data duplikat, maka tidak ada juga proses penghapusannya.
+      
+      
+    - Dropping Column with Low Correlation
+      
+    - Handle Missing Value
+      
+      Missing Value terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang).
+        
+        kode jangan lupa
+   
+    
+      **Alasan**: Missing Value perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model Machine Learning yang baik juga.
+      
+    - Outliers Detection and Removal
+      
+      Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
+    
+      **Alasan**:Outliers perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus outlier dapat membantu meningkatkan performa model Machine Learning menjadi lebih baik.
+- Train Test Split
+- Data Transformation
+    - Standardization
 # Modelling
 # Evaluation
 ## Referensi (NANTI TANYA)
