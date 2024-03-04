@@ -232,20 +232,87 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       
     - Dropping Column with Low Correlation
       
+      Pada bagian ini adalah proses penghapusan fitur-fitur yang memiliki korelasi rendah terhadap variabel target dari dataset. Langkah ini diambil berdasarkan asumsi bahwa fitur dengan korelasi rendah tidak memberikan kontribusi signifikan terhadap prediksi yang dibuat oleh model.
+ 
+      **Alasan**: Tahapan ini perlu dilakukan karena fitur dengan korelasi rendah terhadap variabel target cenderung tidak memberikan informasi yang berguna untuk prediksi dan dapat menambahkan kebisingan yang tidak perlu ke dalam model. Dengan menghilangkan fitur-fitur ini, kita dapat mengurangi kompleksitas model, yang dapat membantu dalam mencegah overfitting dan mempercepat waktu pelatihan. Selain itu, model yang lebih sederhana dengan fitur yang lebih sedikit lebih mudah untuk diinterpretasikan, yang memungkinkan kita untuk lebih memahami bagaimana fitur-fitur tersebut mempengaruhi variabel target. 
+
+      Berikut ini adalah proses penghapusan kolom dengan korelasi yang rendah:
+      ```python
+       # Mendefinisikan daftar fitur dengan korelasi rendah terhadap variabel target
+      low_corr = ['ph', 'Trihalomethanes', 'Turbidity', 'Conductivity']
+      
+      # Menghapus fitur-fitur tersebut dari dataset
+      # Axis=1 menunjukkan bahwa operasi penghapusan dilakukan pada kolom (fitur)
+      dataset = dataset.drop(low_corr, axis=1)
+
+      ```
+      Berikut ini adalah tampilan dataframe setelah penghapusan beberapa kolom:
+      
+      | Hardness   | Solids     | Chloramines | Sulfate  | Organic Carbon | Potability |
+      |------------|------------|-------------|----------|----------------|------------|
+      | 204.890455 | 20791.31898| 7.300212    | 368.516441 | 10.379783      | 0          |
+      | 129.422921 | 18630.057858| 6.635246   | NaN      | 15.180013      | 0          |
+      | 224.236259 | 19909.541732| 9.275884   | NaN      | 16.868637      | 0          |
+      | 214.373394 | 22018.417441| 8.059332   | 356.886136| 18.436524      | 0          |
+
+      
     - Handle Missing Value
       
-      Missing Value terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang).
-        
-        kode jangan lupa
-   
-    
+      Missing Value terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
+ 
       **Alasan**: Missing Value perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model Machine Learning yang baik juga.
+ 
+      Berikut ini adalah kode untuk mencari tahu kolom mana saja dan berapa jumlah missing value-nya:
+      ```python
+       dataset.isnull().sum()
+      ```
+ 
+      Berikut ini adalah output-nya:
+      ```python
+      Hardness            0
+      Solids              0
+      Chloramines         0
+      Sulfate           781
+      Organic_carbon      0
+      Potability          0
+      dtype: int64
+      ```
+
+      Berikut ini kode untuk menghapus baris data yang memiliki missing value:
+      ```python
+       dataset.dropna(inplace =True)
+      ```
       
     - Outliers Detection and Removal
-      
-      Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
+       Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
     
       **Alasan**:Outliers perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus outlier dapat membantu meningkatkan performa model Machine Learning menjadi lebih baik.
+ 
+      
+      ![Boxplots](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/ff0bc57e-003e-4701-b296-b920174168e151)
+      <div align="center">Gambar 5a - Boxplots Outlier</div>
+
+      Berikut ini adalah kode untuk menghapus outliers yang ada pada dataframe:
+      ```python
+      # Assuming 'df' is your DataFrame
+      Q1 = dataset.quantile(0.25)
+      Q3 = dataset.quantile(0.75)
+      IQR = Q3 - Q1
+      
+      # Define bounds for what is considered an outlier
+      lower_bound = Q1 - 1.5 * IQR
+      upper_bound = Q3 + 1.5 * IQR
+      
+      # Remove outliers
+      dataset = dataset[~((dataset < lower_bound) | (dataset > upper_bound)).any(axis=1)]
+      ```
+
+    - Imbalance Data
+      Imbalance data adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan oversampling atau undersampling
+
+      **Alasan**: Hal ini dapat menjadi masalah adalah karena imbalance data dapat menyebabkan model bias terhadap kelas mayoritas (lebih banyak) dan menghasilkan performa yang buruk pada kelas minoritas lebih sedikit)
+      
+     
 - Train Test Split
 - Data Transformation
     - Standardization
