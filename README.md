@@ -255,7 +255,8 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       | 224.236259 | 19909.541732| 9.275884   | NaN      | 16.868637      | 0          |
       | 214.373394 | 22018.417441| 8.059332   | 356.886136| 18.436524      | 0          |
 
-      
+      Pengahpusan kolom dengan korelasi rendah sudah berhasil dilakukan.
+
     - Handle Missing Value
       
       Missing Value terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
@@ -282,9 +283,12 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       ```python
        dataset.dropna(inplace =True)
       ```
+
+      Penanganan missing value sudah berhasil dilakukan.
       
     - Outliers Detection and Removal
-       Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
+      
+      Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
     
       **Alasan**:Outliers perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus outlier dapat membantu meningkatkan performa model Machine Learning menjadi lebih baik.
  
@@ -306,8 +310,11 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       # Remove outliers
       dataset = dataset[~((dataset < lower_bound) | (dataset > upper_bound)).any(axis=1)]
       ```
+      
+      Penghapusan outliers sudah berhasil dilakukan.
 
     - Imbalance Data
+      
       Imbalance data adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan oversampling atau undersampling.
 
       **Alasan**: Hal ini dapat menjadi masalah adalah karena imbalance data dapat menyebabkan model bias terhadap kelas mayoritas (lebih banyak) dan menghasilkan performa yang buruk pada kelas minoritas lebih sedikit)
@@ -346,10 +353,83 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       Jumlah baris data yang berinilai '0' ada sebanyak: 883
       Jumlah baris data yang berinilai '1' ada sebanyak: 883    
       ```
-     
+
+     Proses penyeimbangan dataset sudah berhasil dilakukan.
+  
 - Train Test Split
+  
+  Train Test Split adalah metode yang digunakan untuk membagi dataset menjadi dua bagian: satu untuk melatih model (training set) dan satu lagi untuk menguji model (testing set). Biasanya, data dibagi dengan proporsi tertentu, misalnya 80% untuk training dan 20% untuk testing.
+
+  **Alasan**: Proses ini dilakukan agar dapat mengevaluasi kinerja model secara objektif. Dengan memisahkan data uji, kita dapat mengukur seberapa baik model memprediksi data baru yang tidak pernah dilihat sebelumnya, yang merupakan indikator penting dari kemampuan generalisasi model.
+
+  Berikut adalah bagian untuk membagi dataset menjadi train set dan test set:
+  ```python
+  X = dataset.drop(["Potability"], axis =1)
+  y = dataset["Potability"]
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42)
+  ```
+
+  Berikut ini adalah bagian untuk memeriksa ada berapa baris data untuk train dan test pada dataframe variabel non-label:
+  ```pyhton
+  train_count = X_train.shape
+  test_count = X_test.shape
+  print("Dataset training memiliki data sebanyak " + str(train_count[0]) + " baris")
+  print("Dataset test memiliki data sebanyak " + str(test_count[0]) + " baris")
+  ```
+  
+  Berikut ini adalah hasilnya:
+  ```python
+  Dataset training memiliki data sebanyak 1412 baris
+  Dataset test memiliki data sebanyak 354 baris
+  ```
+
+  Berikut ini adalah bagian untuk memeriksa ada berapa baris data untuk train dan test pada dataframe variabel label:
+  ```python
+  train_count_label = y_train.shape
+  test_count_label = y_test.shape
+  print("Dataset label training memiliki data sebanyak " + str(train_count_label[0]) + " baris")
+  print("Dataset label test memiliki data sebanyak " + str(test_count_label[0]) + " baris")
+  ```
+
+   Berikut ini adalah hasilnya:
+  ```pyhton
+  Dataset label training memiliki data sebanyak 1412 baris
+  Dataset label test memiliki data sebanyak 354 baris
+  ```
+
+  Train Test Split sudah berhasil dilakukan.
+  
 - Data Transformation
+  
+  Data Transformation adalah proses mengubah data dari satu format atau struktur ke format atau struktur lainnya. Proses ini biasanya dari format sistem sumber menjadi yang dibutuhkan oleh sistem tujuan. Data Transformation dapat dilakukan dengan berbagai cara, seperti mengubah satuan ukuran data, mengubah distribusi data, atau mengubah bentuk data.
+    
+    **Alasan**: Data Tranformasi perlu dilakukan karena dapat meningkatkan efisiensi dan meningkatkan kualitas data yang digunakan dalam pembuatan model Machine Learning.
     - Standardization
+ 
+      Standardisasi adalah proses mengubah data menjadi format yang lebih seragam dan dapat dibandingkan. Ini biasanya melibatkan pengurangan rata-rata (mean) dan pembagian dengan simpangan baku (standard deviation) untuk setiap fitur, sehingga fitur tersebut akan memiliki rata-rata nol dan varians satu.
+
+      **Alasan**: Standardisasi perlu dilakukan karena banyak algoritma machine learning yang berperforma lebih baik jika fitur-fitur berada pada skala yang sama. Standardisasi membantu dalam hal ini dengan memastikan bahwa setiap fitur berkontribusi secara proporsional ke hasil akhir dan menghindari bias terhadap fitur dengan skala yang lebih besar.
+
+      Berikut ini adalah penerapan standardisasinya:
+      ```python
+      X_train[:] = scaler.fit_transform(X_train[:])
+      ```
+
+      Setelah dilakukannya standardisasinya, dapat kita cek hasilnya perubahannya dengan melihat mean dan standar deviasinya
+      
+      Berikut ini adalah keadaan setelah dilakukan standardisasi:
+      |       |   Hardness |   Solids |   Chloramines |   Sulfate |   Organic_carbon |
+      |:------|-----------:|---------:|--------------:|----------:|-----------------:|
+      | count |   354      | 354      |      354      |  354      |         354      |
+      | mean  |     0      |   0      |        0      |    0      |          -0      |
+      | std   |     1.0014 |   1.0014 |        1.0014 |    1.0014 |           1.0014 |
+      | min   |    -2.5788 |  -2.1347 |       -2.614  |   -2.6012 |          -2.8722 |
+      | 25%   |    -0.5844 |  -0.7659 |       -0.6995 |   -0.6544 |          -0.6918 |
+      | 50%   |     0.0714 |  -0.1126 |       -0.0591 |    0.0374 |          -0.0836 |
+      | 75%   |     0.6127 |   0.7476 |        0.6919 |    0.6888 |           0.6359 |
+      | max   |     2.6081 |   2.5987 |        2.6845 |    2.5396 |           2.7042 |
+
+      Standardisasi sudah berhasil dilakukan
 # Modelling
 # Evaluation
 ## Referensi (NANTI TANYA)
