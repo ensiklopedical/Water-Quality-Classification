@@ -39,16 +39,16 @@ _Dataset_ tersebut dapat diunduh [disini](https://www.kaggle.com/datasets/uom190
 Berikut ini adalah informasi lainnya mengenai variabel-variabel yang terdapat di dataset tersebut:
 
 ### Variabel-variabel pada _Dataset "Water Quality and Potability"_ adalah sebagai berikut:
-- 'pH': Tingkat pH air. 
-- 'Hardness': Ukuran kandungan mineral. 
-- 'Solids': Total padatan terlarut dalam air. 
-- 'Chloramines': Konsentrasi kloramin dalam air. 
-- 'Sulfate': Konsentrasi sulfat dalam air. 
-- 'Conductivity': Konduktivitas listrik di air. 
-- 'Organic_carbon': Kandungan karbon organik dalam air. 
-- 'Trihalomethanes': Konsentrasi trihalometan dalam air. 
-- 'Turbidity': Tingkat kekeruhan, ukuran kejernihan air. 
-- 'Potability': Variabel target. menunjukkan potabilitas air dengan nilai 1 (layak minum) dan 0 (tidak layak minum).
+- ```pH```: Tingkat pH air. 
+- ```Hardness```: Ukuran kandungan mineral. 
+- ```Solids```: Total padatan terlarut dalam air. 
+- ```Chloramines```: Konsentrasi kloramin dalam air. 
+- ```Sulfate```: Konsentrasi sulfat dalam air. 
+- ```Conductivity```: Konduktivitas listrik di air. 
+- ```Organic_carbon```: Kandungan karbon organik dalam air. 
+- ```Trihalomethanes```: Konsentrasi trihalometan dalam air. 
+- ```Turbidity```: Tingkat kekeruhan, ukuran kejernihan air. 
+- ```Potability```: Variabel target. menunjukkan potabilitas air dengan nilai 1 (layak minum) dan 0 (tidak layak minum).
 
 Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _exploratory data analysis_ dan Visualisasi Data.
 
@@ -146,24 +146,43 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
   - Univariate Analysis
     
     ![Univariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7d02cde4-cc22-49f7-ba8f-34bca9b09f3b)
-    <div align="center">Gamabar 1a - Univariate Analysis Categorical Column</div>
-    Penjelasan:
+    <div align="center">Gambar 1a - Univariate Analysis Categorical Column</div>
+    
+    Berdasarkan ``` Gambar 1a ``` , terlihat bahwa ```Potability``` memiliki dua _unique_ value, yaitu '1' yang menyatakan air layak minum dan '0' yang menyatakan air tidak layak minum. Namun, terlihat juga bahwa adanya _imbalance data_ atau ketidakseimbangan data. nilai '0' memiliki baris data hingga nyaris 2000 baris data, sedangkan nilai '1' hanya memiliki sekitar 1250 baris data. Berangkat dari informasi ini, perlu dilakukan penyeimbangan agar tidak terjadi bias pada model _machine learning_ yang akan dibangun.
 
     ![Univariate](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/629564a6-dbbe-4199-984d-4af686952318)
-    <div align="center">Gamabar 1b - Univariate Analysis Numeric Column</div>
-    Penjelasan:
+    <div align="center">Gambar 1b - Univariate Analysis Numeric Column</div>
     
+    Berdasarkan ```Gambar 1b```, gambar ini menampilkan setiap kolom numerik yang ada pada dataset, seperti ```pH```, ```Hardness```, ```Solids```, ```Chrolamines```, ```Sulfate```, ```Conductivity```, ```Organic_carbon```, ```Trihalomethanes```, ```Turbidity```. Dari semua kolom yang ditampilkan, hanya kolom ```Solids``` dan ```Conductivity``` yang memiliki skewness ke arah kiri. Berikut adalah informasi singkat yang didapatkan dari visualisasi diatas:
+
+    - ```pH```: Tingkat pH air. 
+    - ```Hardness```: Ukuran kandungan mineral. 
+    - ```Solids```: Total padatan terlarut dalam air. 
+    - ```Chloramines```: Konsentrasi kloramin dalam air. 
+    - ```Sulfate```: Konsentrasi sulfat dalam air. 
+    - ```Conductivity```: Konduktivitas listrik di air. 
+    - ```Organic_carbon```: Kandungan karbon organik dalam air. 
+    - ```Trihalomethanes```: Konsentrasi trihalometan dalam air. 
+    - ```Turbidity```: Tingkat kekeruhan, ukuran kejernihan air. 
 
   - Multivariate Analysis
 
     ![Multivariate-1](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/de724feb-5c4b-4339-b6f8-9ed31affcf4c)
-    <div align="center">Gamabar 2a - Multivariate Analysis Categorical Column - Every Numeric Column</div>
+    <div align="center">Gambar 2a - Multivariate Analysis Categorical Column - Every Numeric Column</div>
 
     ![Multivariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/bac7770e-d08d-464a-b56d-0e2ee19f2761)
-    <div align="center">Gamabar 2b - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+    <div align="center">Gambar 2b - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+    
   - Correlation
+
+    ![Correlation](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/160fd61a-cddd-4c72-8f53-8def354bd3dd)
+    <div align="center">Gambar 3a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+    
   - Missing Value
-  
+
+    ![Missing Value](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7302ab07-57ef-4147-a3b6-ed75f87561a5)
+    <div align="center">Gambar 4a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
+    
 # Data Preparation
 # Modelling
 # Evaluation
