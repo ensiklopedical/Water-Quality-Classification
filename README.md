@@ -1,7 +1,7 @@
 # LAPORAN PROYEK MACHINE LEARNING - Klasifikasi Kualitas Air 
 
 # Domain Proyek
-Air merupakan salah satu kebutuhan yang harus dipenuhi dalam kehidupan manusia[[1](https://ojs.serambimekkah.ac.id/jurnal-biologi/article/view/1592)]. Kehadirannya sangat penting untuk kesehatan dan vitalitas tubuh kita karena tubuh manusia membutuhkan air untuk berfungsi dengan baik[[2](https://www.medichub.ro/reviste-de-specialitate/farmacist-ro/apa-componenta-indispensabila-pentru-sanatatea-si-functionarea-organismului-uman-id-7760-cmsid-62)]. Air berguna untuk pencernaan, penyerapan nutrisi, dan pembuangan sisa[[3](https://scholarworks.uark.edu/cfhndfend/7/)]. Air juga berfungsi untuk mengontrol suhu tubuh, tekanan darah, dan melumasi persendian[[4](https://www.researchgate.net/publication/377303022_EDUKASI_MANFAAT_AIR_MINERAL_PADA_TUBUH_BAGI_ANAK_SEKOLAH_DASAR_SECARA_ONLINE)]. Kekurangan air tubuh bahkan dapat menyebabkan dehidrasi, yang jika tidak diatasi dapat fatal [[5](https://ijhn.ub.ac.id/index.php/ijhn/article/view/114)]. Oleh karena itu, sangat penting bagi setiap orang untuk selalu mengonsumsi jumlah air yang cukup setiap hari agar tubuh tetap sehat.
+Air merupakan salah satu kebutuhan yang harus dipenuhi dalam kehidupan manusia[[1](https://ojs.serambimekkah.ac.id/jurnal-biologi/article/view/1592)]. Kehadirannya sangat penting untuk kesehatan dan vitalitas tubuh kita karena tubuh manusia membutuhkan air untuk berfungsi dengan baik[[2](https://www.medichub.ro/reviste-de-specialitate/farmacist-ro/apa-componenta-indispensabila-pentru-sanatatea-si-functionarea-organismului-uman-id-7760-cmsid-62)]. Air berguna untuk pencernaan, penyerapan nutrisi, dan pembuangan sisa[[3](https://secure.caes.uga.edu/extension/publications/files/pdf/B%201301_4.PDF)]. Air juga berfungsi untuk mengontrol suhu tubuh, tekanan darah, dan melumasi persendian[[4](https://www.researchgate.net/publication/377303022_EDUKASI_MANFAAT_AIR_MINERAL_PADA_TUBUH_BAGI_ANAK_SEKOLAH_DASAR_SECARA_ONLINE)]. Kekurangan air tubuh bahkan dapat menyebabkan dehidrasi, yang jika tidak diatasi dapat fatal [[5](https://ijhn.ub.ac.id/index.php/ijhn/article/view/114)]. Oleh karena itu, sangat penting bagi setiap orang untuk selalu mengonsumsi jumlah air yang cukup setiap hari agar tubuh tetap sehat.
 
 Di Indonesia, masalah air yang tidak memenuhi standar kualitas masih menjadi perhatian serius. Baik di kota-kota maupun desa, kondisi air tahan di Indonesia semakin buruk [[6](https://iopscience.iop.org/article/10.1088/1755-1315/1190/1/012041)]. Berdasarkan riset dari Kemenkes pada tahun 2020, 74,4% rumah tangga di Indonesia akses air minumnya tercemar oleh bakteri _E.coli_ [[7](https://dataindonesia.id/kesehatan/detail/riset-744-sumber-air-minum-rumah-tangga-ri-tercemar-tinja)]. Air minum yang bersifat basa atau asam dapat mempengaruhi pencernaan dan gangguan lambung, ginjal, dan pembuluh darah [[8](https://media.neliti.com/media/publications/100520-ID-kajian-kualitas-air-dan-penggunaan-sumur.pdf)]. Maka dari itu, memastikan ketersediaan air yang layak untuk diminum harus menjadi prioritas utama pemerintah dan lembaga terkait demi kesejahteraan dan kesehatan seluruh masyarakat Indonesia. 
 
@@ -455,36 +455,84 @@ Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _trainin
     - Memerlukan pilihan K yang baik
 - SVM
   - Kelebihan
+    - Efektif untuk data dengan dimensi tinggi
+    - Serbaguna
+    - Robust
   - Kekurangan
+    - Sensitif terhadap pilihan Kernel
+    - Membutuhkan penyetelan Hyperparameter
+    - Training Cost
 
-Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi akan digunakan untuk digunakan ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih
+Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi digunakan untuk ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih.
+
+Berikut ini adalah hasil dari baseline model untuk ketiga model:
+
+Gambar
+
+Model ```Random Forest``` terpilih sebagai model yang akan digunakan lebih lanjut dengan hyperparamter tuning karena memiliki performa ```train``` dan ```test``` yang tertinggi dibandingkan dengan 2 model lainnya.
+
+Berikut ini adalah proses improvement hyperparameter tuning menggunakan ```GridSearch```:
+
+```python
+param_grid = {
+    'n_estimators': [100, 200, 300, 400, 500],
+    'max_depth': [2, 4, 6, 8, 10],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4]
+}
+rf = RandomForestClassifier(
+grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=3, n_jobs=-1, verbose=2)
+grid_search.fit(X_train, y_train)
+best_params = grid_search.best_params_
+best_score = grid_search.best_score_
+
+print(f"Best parameters: {best_params}")
+print(f"Best cross-validation score (accuracy): {best_score}")
+```
+
+Berikut ini adalah hasil dari grid search:
+```python
+
+```
+
+Selanjutnya, dilakukan menggunakan dataset test untuk menguji performa model terhadap data yang belum dilihat:
+```python
+best_model = grid_search.best_estimator
+y_pred = best_model.predict(X_test)
+accuracy = metrics.accuracy_score(y_test, y_pred)
+print(f"Test Accuracy: {accuracy}")
+```
+
+Berikut ini adalah hasil dari pengujian dengan dataset test:
+```python
+
+```
 
 # Evaluation
-## Referensi (NANTI TANYA)
+
+## Referensi
 
 [1] Z. Ab, Ismail Efendy, D. Syamsul, and I. wati, “FAKTOR YANG BERHUBUNGAN TINGKAT KONSUMSI AIR BERSIH PADA RUMAH TANGGA DI KECAMATAN PEUDADA KABUPATEN BIREUN,” vol. 7, no. 2, Nov. 2019, doi: https://doi.org/10.32672/jbe.v7i2.1592.
 ‌
 
-[1] Ab, Z., Ismail Efendy, Syamsul, D., & wati, I. (2019). FAKTOR YANG BERHUBUNGAN TINGKAT KONSUMSI AIR BERSIH PADA RUMAH TANGGA DI KECAMATAN PEUDADA KABUPATEN BIREUN. 7(2). https://doi.org/10.32672/jbe.v7i2.1592
+‌[2] M. Mititelu et al., “Water, the indispensable component for the health and functioning of the human body,” Farmacist.ro, vol. 1, no. 210, pp. 30–30, Jan. 2023, doi: https://doi.org/10.26416/farm.210.1.2023.7760.
 
-‌[2]
+[3] B. Fairchild and C. Ritz, “Poultry Drinking Water Primer.” Available: https://secure.caes.uga.edu/extension/publications/files/pdf/B%201301_4.PDF
 
-[3]
+[4] R. Salim and T. Taslim, “EDUKASI MANFAAT AIR MINERAL PADA TUBUH BAGI ANAK SEKOLAH DASAR SECARA ONLINE,” JPKM, vol. 27, no. 2, Mar. 2021.
 
-[4]
+[5] A. Buanasita, A. Yanto, and I. Sulistyowati, “Perbedaan Tingkat Konsumsi Energi, Lemak, Cairan, dan Status Hidrasi Mahasiswa Obesitas dan Non Obesitas,” Indonesian Journal of Human Nutrition, vol. 2, no. 1, pp. 11–22, Jun. 2015, doi: https://doi.org/10.21776/ub.ijhn.2015.002.01.2.
 
-[5]
+[6] Mega Fia Lestari, Muhammad Ilham Al’Wahid, Muhammad, None Yusriadi, Baiq Amelia Riyandari, and Devi Nur Anisa, “Analysis of mineral water quality based on SNI 3553:2015 and its consequences from legal perspectives,” IOP Conference Series: Earth and Environmental Science, vol. 1190, no. 1, pp. 012041–012041, Jun. 2023, doi: https://doi.org/10.1088/1755-1315/1190/1/012041.
 
-[6]
+[7] “Riset: 74,4% Sumber Air Minum Rumah Tangga RI Tercemar Tinja,” dataindonesia.id. https://dataindonesia.id/kesehatan/detail/riset-744-sumber-air-minum-rumah-tangga-ri-tercemar-tinja (accessed Mar. 05, 2024).
 
-[7]
+[8] E. B. Sasongko, E. Widyastuti, and R. E. Priyono, “KAJIAN KUALITAS AIR DAN PENGGUNAAN SUMUR GALI OLEH MASYARAKAT DI SEKITAR SUNGAI KALIYASA KABUPATEN CILACAP,” Jurnal Ilmu Lingkungan, vol. 12, no. 2, p. 72, Oct. 2014, doi: https://doi.org/10.14710/jil.12.2.72-82.
 
-[8]
+[9] Generosa Lukhayu Pritalia, “Analisis Komparatif Algoritme Machine Learning dan Penanganan Imbalanced Data pada Klasifikasi Kualitas Air Layak Minum,” KONSTELASI: Konvergensi Teknologi dan Sistem Informasi, vol. 2, no. 1, Apr. 2022, doi: https://doi.org/10.24002/konstelasi.v2i1.5630.
 
-[9]
+[10] I. Fitriyaningsih, Y. Basani, and L. M. Ginting, “MACHINE LEARNING: PROSPERITY OF RAINFALL, WATER DISCHARGE, AND FLOOD WITH WEB APPLICATION IN DELI SERDANG,” JURNAL PENELITIAN KOMUNIKASI DAN OPINI PUBLIK, vol. 22, no. 2, Dec. 2018, doi: https://doi.org/10.33299/jpkop.22.2.1752.
 
-[10]
+[11] K Abirami, P. Radhakrishna, and M. Venkatesan, “Water Quality Analysis and Prediction using Machine Learning,” Apr. 2023, doi: https://doi.org/10.1109/csnt57126.2023.10134661.
 
-[11]
-
-[12]
+[12] S. Iyer, S. Kaushik, and Poonam Nandal, “Water Quality Prediction Using Machine Learning,” MR International Journal of Engineering and Technology, vol. 10, no. 1, pp. 59–62, May 2023, doi: https://doi.org/10.58864/mrijet.2023.10.1.8.
