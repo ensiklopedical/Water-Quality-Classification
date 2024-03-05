@@ -509,6 +509,61 @@ Berikut ini adalah hasil dari pengujian dengan dataset test:
 ```
 
 # Evaluation
+Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dilakukan evaluasi untuk melihat performa dari model tersebut. Untuk melakukan proses evaluasi model klasifikasi biner digunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari Confusion Matrix.
+
+
+
+![ConfusionMatrix2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/af0d71ed-f630-4147-838e-77c2dae31f4e)
+
+
+
+Confusion Matrix adalah tabel yang digunakan untuk mengevaluasi performa model klasifikasi. Ini adalah tabel yang menunjukkan jumlah prediksi yang benar dan salah yang dibuat oleh model dengan membaginya ke dalam empat kategori:
+
+- **True Positives (TP):**
+  
+  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas positif. Misalnya, dalam konteks medis, ini bisa berarti pasien yang benar-benar memiliki penyakit tertentu dan model juga memprediksi hal yang sama.
+  
+- **True Negatives (TN):**
+  
+  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas negatif. Menggunakan contoh yang sama, ini berarti pasien tidak memiliki penyakit, dan model juga memprediksi bahwa mereka sehat.
+  
+- **False Positives (FP):**
+  
+  Dikenal juga sebagai ‘Type I error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas negatif sebagai positif. Dalam konteks medis, ini berarti pasien yang sehat salah diidentifikasi sebagai memiliki penyakit.
+
+- **False Negatives (FN):**
+  
+  Dikenal juga sebagai ‘Type II error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas positif sebagai negatif. Ini bisa berarti pasien yang sebenarnya memiliki penyakit tidak terdeteksi oleh model.
+
+Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dan cara kerjanya:
+
+- ```Accuracy```
+
+  $$ Accuracy = TP + TN / TP + TN + FP + FN $$
+
+  Akurasi adalah ukuran seberapa sering prediksi model benar dan dihitung sebagai jumlah prediksi yang benar dibagi dengan jumlah total prediksi.
+
+- ```Precision```
+
+  $$Precision = TP / TP + FP$$
+
+  Presisi mengukur proporsi prediksi positif yang benar-benar positif dan dihitung sebagai jumlah True Positives dibagi dengan jumlah True Positives dan False Positives.
+
+- ```Recall```
+
+
+  $$ Recall = TP / TP + FN $$
+
+
+  Recall mengukur proporsi positif aktual yang diidentifikasi dengan benar dan dihitung sebagai jumlah True Positives dibagi dengan jumlah True Positives dan False Negatives.
+
+- ```F1 Score```
+
+
+  $$ Recall = Precision . Recall / Precision + Recall $$
+
+  
+  F1 Score adalah rata-rata harmonik dari presisi dan recall, memberikan keseimbangan antara keduanya, terutama ketika ada distribusi kelas yang tidak seimbang.
 
 ## Referensi
 
