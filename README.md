@@ -436,12 +436,28 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
 # Modelling
 Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _training dataset_ dan _test dataset_ siap untuk digunakan untuk pembangunan model Machine Learning-nya. Untuk kasus ini, digunakan 3 (tiga) _baseline model_ dari 3 algoritma yang berbeda. Berikut ini adalah ketiga algoritma tersebut:
 - Random Forest
+  - Kelebihan
+    - Akurasi tinggi
+    - Dapat menangani data dengan dimensi tinggi
+    - Robust terhadap noise dan outliers
+  - Kekurangan
+    - Mahal secara komputasi
+    - Butuh waktu lebih lama
+    - Interpretabilitas
 - KNN
+  - Kelebihan
+    - Sederhana dan Mudah Dipahami
+    - Non-parametric
+    - Tidak perlu pelatihan
+  - Kekurangan
+    - Sensitif terhadap outliers
+    - Mahal secara komputasi
+    - Memerlukan pilihan K yang baik
 - SVM
+  - Kelebihan
+  - Kekurangan
 
-Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi akan digunakan untuk digunakan ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan 
-
-??? GRID SEARCH ???
+Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi akan digunakan untuk digunakan ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih
 
 # Evaluation
 ## Referensi (NANTI TANYA)
