@@ -12,22 +12,24 @@ _machine learning_ dapat memastikan keamanan konsumsi air karena dapat mendeteks
 
 Angka konsumsi air minum yang tidak layak di Indonesia masih tinggi. Maka dari itu, dibutuhkannya pengembangan model _machine learning_ untuk mengklasifikasikan kualitas air minum sebagai sarana untuk membantu dan memastikan apakah air minum yang ingin dikonsumsi layak atau tidak. Salah satu manfaat dari adanya model klasifikasi kualitas air ini adalah model ini dapat digunakan oleh pemerintah atau pihak perusahaan air minum untuk memastikan apakah air yang mereka distibrusikan layak untuk diminum atau tidak. Oleh karena itu, dengan melakukan pengecekan kualitas air minum, konsumen atau masyarakat luas dapat terhindar dari konsumsi air tidak layak minum yang dapat menyebabkan berbagai masalah kesehatan.
 
-### Problem Statements (BELOM)
-- Berdasarkan eksplorasi *dataset*, fitur apa saja yang mempengaruhi dalam menentukan estimasi harga rumah?
-- Bagaimana mengolah *dataset* agar dapat dibuat model prediksi harga rumah?
-- Bagaimanna cara meningkatkan nilai perfoma model prediksi harga rumah?
-
-### Goals (BELOM)
-- Mengeksplorasi semua fitur yang tersedia pada *dataset* kemudian membuat melihat korelasi harga dari semua fitur yang sedia untuk melihat faktor apa saja yang paling berpengaruh sampai paling kurang berpengaruh terhadap harga rumah
-- Melakukan proses *data wragling* dan *data preparation* terhadap *dataset* agar dapat dibuat model predksi harga rumah
-- Melakukan beberapa variasi model untuk mendapatkan model yang paling baik dari beberapa model yang telah dibuat untuk prediksi harga rumah
+### Problem Statements
+- Berdasarkan eksplorasi terhadap dataset, fitur-fitur apa saja yang dapat menentukan atau memberi pengaruh terhadap klasifikasi layak atau tidaknya air minum?
+- Bagaimana memproses dataset agar dapat digunakan untuk pembuatan model machine learning klasifikasi kualitas air minum?
+- Bagaimana cara medapatkan model klasifikasi kuaitas air minum dengan performa terbaik?
 
 
-### Solution statements (BELOM)
-- Untuk eksplorasi fitur dilakukan Analisis Univariat dan Analisis Multivariat. Analisis Univariat dilakukan untuk mengeksploasi data numerik dan data kategorik. Analisis Multivariat dilakukan untuk melihat hubungan antar fitur. Teknik yang digunakan adalah menggunakan catplot, pairplot, dan heatmap untuk melihat *Correlation Matrix* dari fitur-fitur yang dimiliki.
-- Agar didapatkan model prediksi yang baik maka dilakukan proses *Data Wragling* yang meliputi *Data Gathering*, *Data Assessing*, dan *Data Cleaning*.
-- Untuk mengetahui perfoma model dilakukan pengecekan performa dengan metrik evaluasi.
+### Goals
+- Melakukan eksplorasi semua fitur-fitur yang terdapat pada dataset dan melihat fitur-fitur mana saja yang memiliki pengaruh besar atau memiliki korelasi tinggi terhadap label klasifikasi air.
+- Melakukan data preparation untuk mempersiapkan model untuk proses training.
+- Melakukan proses training dengan baseline model dari berbagai algoritma dan menggunakan baseline model dengan performa terbaik untuk melakukan tuning hyperparameter.
 
+
+### Solution statements
+- Untuk melakukan eksplorasi fitur dilakukan analisis univariat dan multivariat untuk menemukan hubungan antar fitur baik data numerik maupun data kategorikal. Kemudian, menggunakan barchart, heatmap, dan correlation matrix untuk medapatkan informasi lebih lanjut
+- Untuk mendapatkan data yang bersih untuk diproses ke tahap modelling, dilakukannya proses data preparation yang terdiri dari data cleaning, train test split, dan data transformation. Kebersihan data dapat mempengaruhi performa model yang akan dibuat.
+- Untuk mendapatkan model dengan performa terbaik, digunakan 3 algoritma sebagai baseline model, yaitu KNN, SVM, dan Random Forest. Kemudian, untuk dapat mengetahui baseline model mana yang memiliki performa terbaik dapat dilakukan evaluasi menggunakan Confusion Matrix (Accuracy, Precision, Recall, F1 Score) yang juga divisualisasikan. Selanjutnya, model yang terpilih akan dibantu dengan grid search untuk menemukan hyperparameter yang memiliki performa terbaik. Terakhir, model tersebut dilakukan evaluasi menggunakan Confusion Matrix (Accuracy, Precision, Recall, F1 Score).
+
+  
 # Data Undestanding
 
 _Dataset_ yang digunakan untuk pembangunan model _machine learning_ ini adalah _dataset_ "Water Quality and Potability" yang tersedia di situs web [Kaggle](https://www.kaggle.com/). _Dataset_ tersebut adalah _dataset_ kuantitatif yang berisi kolom-kolom yang dapat menentukan sebuah kualitas air layak diminum atau tidak. _Dataset_ ini memiliki 3276 baris dan 10 kolom data.
@@ -255,7 +257,7 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       | 224.236259 | 19909.541732| 9.275884   | NaN      | 16.868637      | 0          |
       | 214.373394 | 22018.417441| 8.059332   | 356.886136| 18.436524      | 0          |
 
-      Pengahpusan kolom dengan korelasi rendah sudah berhasil dilakukan.
+      Penghapusan kolom dengan korelasi rendah sudah berhasil dilakukan.
 
     - Handle Missing Value
       
@@ -430,7 +432,17 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       | max   |     2.6081 |   2.5987 |        2.6845 |    2.5396 |           2.7042 |
 
       Standardisasi sudah berhasil dilakukan
+      
 # Modelling
+Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _training dataset_ dan _test dataset_ siap untuk digunakan untuk pembangunan model Machine Learning-nya. Untuk kasus ini, digunakan 3 (tiga) _baseline model_ dari 3 algoritma yang berbeda. Berikut ini adalah ketiga algoritma tersebut:
+- Random Forest
+- KNN
+- SVM
+
+Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi akan digunakan untuk digunakan ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan 
+
+??? GRID SEARCH ???
+
 # Evaluation
 ## Referensi (NANTI TANYA)
 
