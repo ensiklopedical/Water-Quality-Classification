@@ -521,25 +521,25 @@ Confusion Matrix adalah tabel yang digunakan untuk mengevaluasi performa model k
 
 - **True Positives (TP):**
   
-  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas positif. Misalnya, dalam konteks medis, ini bisa berarti pasien yang benar-benar memiliki penyakit tertentu dan model juga memprediksi hal yang sama.
+  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas positif. Misalnya, dalam konteks klasifikasi air ketika air yang layak minum dan model juga meprediksi hal yang sama.
   
 - **True Negatives (TN):**
   
-  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas negatif. Menggunakan contoh yang sama, ini berarti pasien tidak memiliki penyakit, dan model juga memprediksi bahwa mereka sehat.
+  Ini adalah kasus-kasus di mana model dengan benar mengidentifikasi kelas negatif. Menggunakan contoh yang sama, ini ketika air yang tidak layak minum dan model juga meprediksi hal yang sama.
   
 - **False Positives (FP):**
   
-  Dikenal juga sebagai ‘Type I error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas negatif sebagai positif. Dalam konteks medis, ini berarti pasien yang sehat salah diidentifikasi sebagai memiliki penyakit.
+  Dikenal juga sebagai ‘Type I error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas negatif sebagai positif. Dalam konteks klasifikasi air ketika air yang tidak layak minum, tetapi model memprediksikan bahwa air tersrbut layak minum.
 
 - **False Negatives (FN):**
   
-  Dikenal juga sebagai ‘Type II error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas positif sebagai negatif. Ini bisa berarti pasien yang sebenarnya memiliki penyakit tidak terdeteksi oleh model.
+  Dikenal juga sebagai ‘Type II error’, ini adalah kasus-kasus di mana model salah mengidentifikasi kelas positif sebagai negatif. Dalam konteks klasifikasi air ketika air yang layak minum, tetapi model memprediksikan bahwa air tersebut tidak layak minum.
 
 Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dan cara kerjanya:
 
 - ```Accuracy```
 
-  $$ Accuracy = TP + TN / TP + TN + FP + FN $$
+  $$Accuracy = TP + TN / TP + TN + FP + FN$$
 
   Akurasi adalah ukuran seberapa sering prediksi model benar dan dihitung sebagai jumlah prediksi yang benar dibagi dengan jumlah total prediksi.
 
@@ -552,7 +552,7 @@ Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan
 - ```Recall```
 
 
-  $$ Recall = TP / TP + FN $$
+  $$Recall = TP / TP + FN$$
 
 
   Recall mengukur proporsi positif aktual yang diidentifikasi dengan benar dan dihitung sebagai jumlah True Positives dibagi dengan jumlah True Positives dan False Negatives.
@@ -560,10 +560,12 @@ Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan
 - ```F1 Score```
 
 
-  $$ Recall = Precision . Recall / Precision + Recall $$
+  $$F1 Score = Precision  .  Recall / Precision + Recall$$
 
   
   F1 Score adalah rata-rata harmonik dari presisi dan recall, memberikan keseimbangan antara keduanya, terutama ketika ada distribusi kelas yang tidak seimbang.
+
+  Berikut ini adalah hasil evaluasi model menggunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari Confusion Matrix:
 
 ## Referensi
 
