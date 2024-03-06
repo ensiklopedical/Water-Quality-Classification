@@ -55,6 +55,10 @@ Berikut ini adalah informasi lainnya mengenai variabel-variabel yang terdapat di
 Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _exploratory data analysis_ dan Visualisasi Data.
 
 **_Exploratory Data Analysis_**
+
+Exploratory Data Analysis (EDA) adalah pendekatan analisis data yang bertujuan untuk memahami karakteristik utama dari kumpulan data. EDA melibatkan penggunaan teknik statistik dan visualisasi grafis untuk menemukan pola, hubungan, atau anomali untuk membentuk hipotesis. Proses ini sering kali tidak terstruktur dan dianggap sebagai langkah awal penting dalam analisis data yang membantu menentukan arah analisis lebih lanjut.
+
+Berikut ini adalah EDA yang dilakukan:
 - ```python
   dataset.shape
   ```
@@ -145,7 +149,9 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
   Berdasarkan _output_ tersebut, ditemukan beberapa _missing value_ pada beberapa variabel, yaitu ```pH```, ```Sulfate```, ```Trihalomethanes```. _Missing value_ perlu ditangani agar tidak berdampak buruk kepada model yang akan dibuat.
 
 **Visualisasi Data**
-  - Univariate Analysis
+  - _Univariate Analysis_
+    
+    _Univariate Analysis_ adalah jenis analisis data yang memeriksa satu variabel (atau bidang data) pada satu waktu. Tujuannya adalah untuk menggambarkan data dan menemukan pola yang ada dalam distribusi variabel tersebut. Ini termasuk penggunaan statistik deskriptif, histogram, dan box plots untuk menganalisis distribusi dan memahami sifat dari variabel tersebut.
     
     ![Univariate-2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7d02cde4-cc22-49f7-ba8f-34bca9b09f3b)
     <div align="center">Gambar 1a - Univariate Analysis Categorical Column</div>
@@ -167,7 +173,9 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
     - ```Trihalomethanes```: Frekuensi kadar trihalomethane paling tinggi sekitar 65 hingga 70.
     - ```Turbidity```: Tingkat kekeruhan mencapai puncaknya sekitar 3,5. 
 
-  - Multivariate Analysis
+  - _Multivariate Analysis_
+
+    _Multivariate Analysis_ adalah prosedur statistik yang digunakan untuk memeriksa hubungan antara beberapa variabel secara bersamaan. Teknik ini mencakup berbagai metode seperti regresi berganda, analisis faktor, dan analisis kluster, yang membantu dalam memahami struktur dan pola yang kompleks dalam data dengan lebih dari satu variabel.
 
     ![Multivariate-1](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/de724feb-5c4b-4339-b6f8-9ed31affcf4c)
     <div align="center">Gambar 2a - Multivariate Analysis Categorical Column - Every Numeric Column</div>
@@ -178,14 +186,17 @@ Kemudian, untuk meningkatkan pemahaman atas data terkait, dilakukannya _explorat
     Berdasarkan gambar ```Gambar 2a``` dan ```Gambar 2b```, dapat terlihat nyaris semua variabel berkumpul di tengah dan tidak menunjukkan karakteristik atau pola khusus terhadap variabel label, yaitu ```'Potability'```. Bahkan, pada ```Gambar 2b``` sekalipun yang sudah di kategorikan berdasarkan ```0``` dan ```1``` (ditandai dengan warna oren dan biru) masih tidak terlihat karakterisik atau pola untuk _value_ pada label tertentu. Kejadian ini mengindikasikan rendahnya korelasi antar fitur, bahkan dengan variabel label sekalipun.
 
     
-  - Correlation
+  - _Correlation_
+    Uji Korelasi adalah metode statistik yang digunakan untuk menentukan apakah ada hubungan antara dua variabel kuantitatif dan seberapa kuat hubungan tersebut. Uji ini menghasilkan nilai koefisien korelasi, seperti Pearson atau Spearman, yang berkisar antara -1 hingga +1. Nilai mendekati +1 menunjukkan korelasi positif yang kuat, sedangkan nilai mendekati -1 menunjukkan korelasi negatif yang kuat. Nilai mendekati 0 menunjukkan tidak adanya korelasi. Uji korelasi penting dalam menentukan arah dan kekuatan hubungan antar variabel, yang dapat membantu dalam pemodelan prediktif dan analisis penyebab.
 
     ![Correlation](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/160fd61a-cddd-4c72-8f53-8def354bd3dd)
     <div align="center">Gambar 3a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
 
     Berdasarkan ```Gambar 3a```, terlihat bahwa kolom ```pH```, ```Conductivity```, ```Trihalomethanes```, ```Turbidity``` memiliki skor korelasi yang paling kecil terhadap label. Kolom yang semacam ini baiknya di-drop saja untuk meringankan beban komputasi dan mengurangi dimensi dari dataset yang akan digunakan dalam pelatihan model.
     
-  - Missing Value
+  - _Missing Value_
+
+    _Missing Value_s adalah data yang hilang atau tidak tercatat dalam dataset. Hal ini bisa terjadi karena berbagai alasan, seperti kesalahan entri data, kerusakan data, atau tidak tersedianya informasi saat pengumpulan data. Missing values dapat mempengaruhi kualitas model _machine learning_ dan hasil analisis statistik. Oleh karena itu, penting untuk mengidentifikasi, menganalisis, dan mengatasi missing values dengan metode seperti imputasi, di mana nilai yang hilang diganti dengan estimasi, atau dengan menghapus baris atau kolom yang terdampak.
 
     ![Missing Value](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/7302ab07-57ef-4147-a3b6-ed75f87561a5)
     <div align="center">Gambar 4a - Multivariate Analysis Categorical Column - Numeric Column based on Potability</div>
@@ -203,12 +214,12 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
   
   Data cleaning adalah adalah langkah penting dalam proses Machine Learning karena melibatkan identifikasi dan penghapusan data yang hilang, duplikat, atau tidak relevan yang terdapat pada dataset. Proses ini memiliki berbagai langkah yang perlu dilakukan supaya dataset siap digunakan untuk pembangunan model Machine Learning.
     
-  **Alasan**: Data Cleaning diperlukan agar data yang digunakan akurat, konsisten, dan bebas kesalahan, karena data yang salah atau tidak konsisten dapat berdampak negatif terhadap performa model Machine Learning
-    - Detection and Removal Duplicates
+  **Alasan**: _Data Cleaning_ diperlukan agar data yang digunakan akurat, konsisten, dan bebas kesalahan, karena data yang salah atau tidak konsisten dapat berdampak negatif terhadap performa model Machine Learning
+    - _Detection and Removal Duplicates_
       
       Data duplikat adalah baris data yang sama persis untuk setiap variabel yang ada. Dataset yang digunakan perlu diperiksa juga apakah dataset memiliki data yang sama atau data duplikat. Jika ada, maka data tersebut harus ditangani dengan menghapus data duplikat tersebut.
 
-      **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan overfitting. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
+      **Alasan**: Data duplikat perlu didektesi dan dihapus karena jika dibiarkan pada dataset dapat membuat model Anda memiliki bias, sehingga menyebabkan _overfitting_. Dengan kata lain, model memiliki performa akurasi yang baik pada data pelatihan, tetapi buruk pada data baru. Menghapus data duplikat dapat membantu memastikan bahwa model Anda dapat menemukan pola yang ada lebih baik lagi.
 
       Berikut ini adalah proses pendeteksian dan penghapusan data duplikatnya:
       ```python
@@ -232,11 +243,11 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       Berdasarkan hasil tersebut, tidak ditemukan adanya data duplikat, maka tidak ada juga proses penghapusannya.
       
       
-    - Dropping Column with Low Correlation
+    - _Dropping Column with Low Correlation_
       
       Pada bagian ini adalah proses penghapusan fitur-fitur yang memiliki korelasi rendah terhadap variabel target dari dataset. Langkah ini diambil berdasarkan asumsi bahwa fitur dengan korelasi rendah tidak memberikan kontribusi signifikan terhadap prediksi yang dibuat oleh model.
  
-      **Alasan**: Tahapan ini perlu dilakukan karena fitur dengan korelasi rendah terhadap variabel target cenderung tidak memberikan informasi yang berguna untuk prediksi dan dapat menambahkan kebisingan yang tidak perlu ke dalam model. Dengan menghilangkan fitur-fitur ini, kita dapat mengurangi kompleksitas model, yang dapat membantu dalam mencegah overfitting dan mempercepat waktu pelatihan. Selain itu, model yang lebih sederhana dengan fitur yang lebih sedikit lebih mudah untuk diinterpretasikan, yang memungkinkan kita untuk lebih memahami bagaimana fitur-fitur tersebut mempengaruhi variabel target. 
+      **Alasan**: Tahapan ini perlu dilakukan karena fitur dengan korelasi rendah terhadap variabel target cenderung tidak memberikan informasi yang berguna untuk prediksi dan dapat menambahkan kebisingan yang tidak perlu ke dalam model. Dengan menghilangkan fitur-fitur ini, kita dapat mengurangi kompleksitas model, yang dapat membantu dalam mencegah _overfitting_ dan mempercepat waktu pelatihan. Selain itu, model yang lebih sederhana dengan fitur yang lebih sedikit lebih mudah untuk diinterpretasikan, yang memungkinkan kita untuk lebih memahami bagaimana fitur-fitur tersebut mempengaruhi variabel target. 
 
       Berikut ini adalah proses penghapusan kolom dengan korelasi yang rendah:
       ```python
@@ -248,7 +259,7 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       dataset = dataset.drop(low_corr, axis=1)
 
       ```
-      Berikut ini adalah tampilan dataframe setelah penghapusan beberapa kolom:
+      Berikut ini adalah tampilan _dataframe_ setelah penghapusan beberapa kolom:
       
       | Hardness   | Solids     | Chloramines | Sulfate  | Organic Carbon | Potability |
       |------------|------------|-------------|----------|----------------|------------|
@@ -259,18 +270,18 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
 
       Penghapusan kolom dengan korelasi rendah sudah berhasil dilakukan.
 
-    - Handle Missing Value
+    - _Handle Missing Value_
       
-      Missing Value terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
+      _Missing Value_ terjadi ketika variabel atau barus tertentu kekurangan titik data, sehingga menghasilkan informasi yang tidak lengkap. Nilai yang hilang dapat ditangani dengan berbagai cara seperti imputasi (mengisi nilai yang hilang dengan mean, median, modus, dll), atau penghapusan (menghilangkan baris atau kolom yang nilai hilang)
  
-      **Alasan**: Missing Value perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model Machine Learning yang baik juga.
+      **Alasan**: _Missing Value_ perlu ditangani karena jika dibiarkan dapat berpengaruh ke rendahnya akurasi model yang akan dibuat. Maka dari itu, penting untuk mengatasi missing value secara efisien untuk mendapatkan model _Machine Learning_ yang baik juga.
  
-      Berikut ini adalah kode untuk mencari tahu kolom mana saja dan berapa jumlah missing value-nya:
+      Berikut ini adalah kode untuk mencari tahu kolom mana saja dan berapa jumlah _missing value_-nya:
       ```python
        dataset.isnull().sum()
       ```
  
-      Berikut ini adalah output-nya:
+      Berikut ini adalah _output_-nya:
       ```python
       Hardness            0
       Solids              0
@@ -281,24 +292,24 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       dtype: int64
       ```
 
-      Berikut ini kode untuk menghapus baris data yang memiliki missing value:
+      Berikut ini kode untuk menghapus baris data yang memiliki _missing value:_
       ```python
        dataset.dropna(inplace =True)
       ```
 
-      Penanganan missing value sudah berhasil dilakukan.
+      Penanganan _missing value_ sudah berhasil dilakukan.
       
-    - Outliers Detection and Removal
+    - _Outliers Detection and Removal_
       
-      Outliers adalah titik data yang menyimpang secara signifikan dari data-data lainnya yang ada. Outliers bisa saja terdapat di hampir semua variabel. Maka dari itu, penting untuk dideteksi dan dihapus jika ada.
+      _Outliers_ adalah titik data yang secara signifikan berbeda dari sebagian besar data dalam kumpulan data. Outliers dapat muncul karena variasi dalam pengukuran atau mungkin menunjukkan kesalahan eksperimental; dalam beberapa kasus, outliers bisa juga menunjukkan variabilitas yang sebenarnya dalam data. Penting untuk menganalisis outliers karena mereka dapat memiliki pengaruh besar pada hasil analisis statistik.
     
-      **Alasan**:Outliers perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus outlier dapat membantu meningkatkan performa model Machine Learning menjadi lebih baik.
+      **Alasan**:_Outliers_ perlu dideteksi dan dihapus karena jika dibiarkan dapat merusak hasil analisis statistik pada kumpulan data sehingga menghasilkan performa model yang kurang baik. Selain itu, Mendeteksi dan menghapus _outlier_ dapat membantu meningkatkan performa model _Machine Learning_ menjadi lebih baik.
  
       
       ![Boxplots](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/ff0bc57e-003e-4701-b296-b920174168e151)
       <div align="center">Gambar 5a - Boxplots Outlier</div>
 
-      Berikut ini adalah kode untuk menghapus outliers yang ada pada dataframe:
+      Berikut ini adalah kode untuk menghapus _outliers_ yang ada pada dataframe:
       ```python
       # Assuming 'df' is your DataFrame
       Q1 = dataset.quantile(0.25)
@@ -313,13 +324,13 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       dataset = dataset[~((dataset < lower_bound) | (dataset > upper_bound)).any(axis=1)]
       ```
       
-      Penghapusan outliers sudah berhasil dilakukan.
+      Penghapusan _outliers_ sudah berhasil dilakukan.
 
-    - Imbalance Data
+    - _Imbalance Data_
       
-      Imbalance data adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan oversampling atau undersampling.
+      _Imbalance data_ adalah kondisi di mana kelas atau kategori dalam dataset tidak diwakili secara merata, dengan satu kelas mendominasi yang lain. Jika hal ini dibiarkan hingga proses pelatihan model dapat mengakibatkan bias pada model. Hal ini bisa diatasi dengan _oversampling_ atau _undersampling_.
 
-      **Alasan**: Hal ini dapat menjadi masalah adalah karena imbalance data dapat menyebabkan model bias terhadap kelas mayoritas (lebih banyak) dan menghasilkan performa yang buruk pada kelas minoritas lebih sedikit)
+      **Alasan**: Hal ini dapat menjadi masalah adalah karena _imbalance_ _data_ dapat menyebabkan model bias terhadap kelas mayoritas (lebih banyak) dan menghasilkan performa yang buruk pada kelas minoritas lebih sedikit)
 
       Berikut ini adalah untuk memeriksa ada berapa baris data untuk masing-masing kelas pada kolom ```'Potability'```:
       ```python
@@ -335,14 +346,14 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
         Jumlah baris data yang berinilai '1' ada sebanyak: 883
       ```
 
-      Dalam hal ini, perlunya dilakukannya undersampling terhadap kelas ```'0'``` agar menyesuaikan jumlah baris datanya dengan kelas ```'1'```
+      Dalam hal ini, perlunya dilakukannya _undersampling_ terhadap kelas ```'0'``` agar menyesuaikan jumlah baris datanya dengan kelas ```'1'```
  
-      Berikut ini adalah bagian untuk melakukan proses undersampling:
+      Berikut ini adalah bagian untuk melakukan proses _undersampling_:
       ```python
         dataset = dataset.groupby('Potability').apply(lambda x: x.sample(min(len(x), min(count_0, count_1)))).reset_index(drop=True)
       ```
      
-      Berikut ini adalah untuk memeriksa ada berapa baris data untuk masing-masing kelas pada kolom ```'Potability'``` setelah dilakukan undersampling:
+      Berikut ini adalah untuk memeriksa ada berapa baris data untuk masing-masing kelas pada kolom ```'Potability'``` setelah dilakukan _undersampling_:
       ```python
         count_0 = dataset[dataset['Potability'] == 0].shape[0]
         count_1 = dataset[dataset['Potability'] == 1].shape[0]
@@ -350,7 +361,7 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
         print("Jumlah baris data yang berinilai '0' ada sebanyak: " + str(count_1))
       ```
 
-      Berikut ini adalah hasil setelah dilakukannya undesampling:
+      Berikut ini adalah hasil setelah dilakukannya _undesampling_:
       ```python
       Jumlah baris data yang berinilai '0' ada sebanyak: 883
       Jumlah baris data yang berinilai '1' ada sebanyak: 883    
@@ -358,9 +369,9 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
 
      Proses penyeimbangan dataset sudah berhasil dilakukan.
   
-- Train Test Split
+- _Train Test Split_
   
-  Train Test Split adalah metode yang digunakan untuk membagi dataset menjadi dua bagian: satu untuk melatih model (training set) dan satu lagi untuk menguji model (testing set). Biasanya, data dibagi dengan proporsi tertentu, misalnya 80% untuk training dan 20% untuk testing.
+  Train Test Split adalah metode yang digunakan untuk membagi dataset menjadi dua bagian: satu untuk melatih model (_training set_) dan satu lagi untuk menguji model (_testing set_). Biasanya, data dibagi dengan proporsi tertentu, misalnya 80% untuk training dan 20% untuk testing.
 
   **Alasan**: Proses ini dilakukan agar dapat mengevaluasi kinerja model secara objektif. Dengan memisahkan data uji, kita dapat mengukur seberapa baik model memprediksi data baru yang tidak pernah dilihat sebelumnya, yang merupakan indikator penting dari kemampuan generalisasi model.
 
@@ -393,24 +404,24 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
   print("Dataset label test memiliki data sebanyak " + str(test_count_label[0]) + " baris")
   ```
 
-   Berikut ini adalah hasilnya:
+  Berikut ini adalah hasilnya:
   ```pyhton
   Dataset label training memiliki data sebanyak 1412 baris
   Dataset label test memiliki data sebanyak 354 baris
   ```
 
-  Train Test Split sudah berhasil dilakukan.
+  `Train Test Split` sudah berhasil dilakukan.
   
 - Data Transformation
   
-  Data Transformation adalah proses mengubah data dari satu format atau struktur ke format atau struktur lainnya. Proses ini biasanya dari format sistem sumber menjadi yang dibutuhkan oleh sistem tujuan. Data Transformation dapat dilakukan dengan berbagai cara, seperti mengubah satuan ukuran data, mengubah distribusi data, atau mengubah bentuk data.
+  _Data Transformation_ adalah proses mengubah data dari satu format atau struktur ke format atau struktur lainnya. Proses ini biasanya dari format sistem sumber menjadi yang dibutuhkan oleh sistem tujuan. _Data Transformation_ dapat dilakukan dengan berbagai cara, seperti mengubah satuan ukuran data, mengubah distribusi data, atau mengubah bentuk data.
     
-    **Alasan**: Data Tranformasi perlu dilakukan karena dapat meningkatkan efisiensi dan meningkatkan kualitas data yang digunakan dalam pembuatan model Machine Learning.
+    **Alasan**: Data Tranformasi perlu dilakukan karena dapat meningkatkan efisiensi dan meningkatkan kualitas data yang digunakan dalam pembuatan model _Machine Learning._
     - Standardization
  
       Standardisasi adalah proses mengubah data menjadi format yang lebih seragam dan dapat dibandingkan. Ini biasanya melibatkan pengurangan rata-rata (mean) dan pembagian dengan simpangan baku (standard deviation) untuk setiap fitur, sehingga fitur tersebut akan memiliki rata-rata nol dan varians satu.
 
-      **Alasan**: Standardisasi perlu dilakukan karena banyak algoritma machine learning yang berperforma lebih baik jika fitur-fitur berada pada skala yang sama. Standardisasi membantu dalam hal ini dengan memastikan bahwa setiap fitur berkontribusi secara proporsional ke hasil akhir dan menghindari bias terhadap fitur dengan skala yang lebih besar.
+      **Alasan**: Standardisasi perlu dilakukan karena banyak algoritma _machine learning_ yang berperforma lebih baik jika fitur-fitur berada pada skala yang sama. Standardisasi membantu dalam hal ini dengan memastikan bahwa setiap fitur berkontribusi secara proporsional ke hasil akhir dan menghindari bias terhadap fitur dengan skala yang lebih besar.
 
       Berikut ini adalah penerapan standardisasinya:
       ```python
@@ -434,12 +445,12 @@ Data Preparation adalah proses pembersihan, transformasi, dan pengorganisasian d
       Standardisasi sudah berhasil dilakukan
       
 # Modelling
-Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _training dataset_ dan _test dataset_ siap untuk digunakan untuk pembangunan model Machine Learning-nya. Untuk kasus ini, digunakan 3 (tiga) _baseline model_ dari 3 algoritma yang berbeda. Berikut ini adalah ketiga algoritma tersebut:
+Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _training dataset_ dan _test dataset_ siap untuk digunakan untuk pembangunan model _Machine Learning_-nya. Untuk kasus ini, digunakan 3 (tiga) _baseline model_ dari 3 algoritma yang berbeda. Berikut ini adalah ketiga algoritma tersebut:
 - Random Forest
   - Kelebihan
     - Akurasi tinggi
     - Dapat menangani data dengan dimensi tinggi
-    - Robust terhadap noise dan outliers
+    - _Robust_ terhadap _noise_ dan _outliers_
   - Kekurangan
     - Mahal secara komputasi
     - Butuh waktu lebih lama
@@ -450,7 +461,7 @@ Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _trainin
     - Non-parametric
     - Tidak perlu pelatihan
   - Kekurangan
-    - Sensitif terhadap outliers
+    - Sensitif terhadap _outliers_
     - Mahal secara komputasi
     - Memerlukan pilihan K yang baik
 - SVM
@@ -461,17 +472,17 @@ Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _trainin
   - Kekurangan
     - Sensitif terhadap pilihan Kernel
     - Membutuhkan penyetelan Hyperparameter
-    - Training Cost
+    - _Training Cost_
 
-Kemudian, baseline model dari ketiga algoritma tersebut yang memiliki akurasi tertinggi digunakan untuk ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan hyperparameter yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan hyperparamter yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih.
+Kemudian, _baseline model_ dari ketiga algoritma tersebut yang memiliki akurasi tertinggi digunakan untuk ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan _hyperparameter_ yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan _hyperparamter_ yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih.
 
-Berikut ini adalah hasil dari baseline model untuk ketiga model:
+Berikut ini adalah hasil dari _baseline model_ untuk ketiga model:
 
 Gambar
 
-Model ```Random Forest``` terpilih sebagai model yang akan digunakan lebih lanjut dengan hyperparamter tuning karena memiliki performa ```train``` dan ```test``` yang tertinggi dibandingkan dengan 2 model lainnya.
+Model ```Random Forest``` terpilih sebagai model yang akan digunakan lebih lanjut dengan hyperparamter tuning karena memiliki performa ```train``` dan ```test``` yang tertinggi dibandingkan dengan 2 model lainnya. Kemudian, hasil `Accuracy`, `Precision`, `Recall`, dan `F1 Score` dari `Random Forest` juga menunjukkan hasil yang terbaik.
 
-Berikut ini adalah proses improvement hyperparameter tuning menggunakan ```GridSearch```:
+Berikut ini adalah proses _improvement_ _hyperparameter tuning_ menggunakan ```GridSearch```:
 
 ```python
 param_grid = {
@@ -490,17 +501,17 @@ print(f"Best parameters: {best_params}")
 print(f"Best cross-validation score (accuracy): {best_score}")
 ```
 
-Berikut ini adalah hasil dari grid search:
+Berikut ini adalah hasil dari _grid search_:
 ```python
 Fitting 3 folds for each of 225 candidates, totalling 675 fits
 Best parameters: {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 300}
 Best cross-validation score (accuracy): 0.563730406107422
 ```
 
-Hasil tersebut digunakan sebagai hyperparameter pembangunan model.
+Hasil tersebut digunakan sebagai _hyperparameter_ pembangunan model.
 
 # Evaluation
-Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dilakukan evaluasi untuk melihat performa dari model tersebut. Untuk melakukan proses evaluasi model klasifikasi biner digunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari Confusion Matrix.
+Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dilakukan evaluasi untuk melihat performa dari model tersebut. Untuk melakukan proses evaluasi model klasifikasi biner digunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari _Confusion Matrix_.
 
 
 
@@ -508,7 +519,7 @@ Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dila
 
 
 
-Confusion Matrix adalah tabel yang digunakan untuk mengevaluasi performa model klasifikasi. Ini adalah tabel yang menunjukkan jumlah prediksi yang benar dan salah yang dibuat oleh model dengan membaginya ke dalam empat kategori:
+_Confusion Matrix_ adalah tabel yang digunakan untuk mengevaluasi performa model klasifikasi. Ini adalah tabel yang menunjukkan jumlah prediksi yang benar dan salah yang dibuat oleh model dengan membaginya ke dalam empat kategori:
 
 - **True Positives (TP):**
   
@@ -532,13 +543,13 @@ Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan
 
   $$Accuracy = TP + TN / TP + TN + FP + FN$$
 
-  Akurasi adalah ukuran seberapa sering prediksi model benar dan dihitung sebagai jumlah prediksi yang benar dibagi dengan jumlah total prediksi.
+  Akurasi adalah ukuran seberapa sering prediksi model benar dan dihitung sebagai jumlah prediksi yang benar dibagi dengan jumlah total prediksi. Akurasi memberikan informasi umum tentang performa model di semua kelas.
 
 - ```Precision```
 
   $$Precision = TP / TP + FP$$
 
-  Presisi mengukur proporsi prediksi positif yang benar-benar positif dan dihitung sebagai jumlah True Positives dibagi dengan jumlah True Positives dan False Positives.
+  _Precision_ mengukur proporsi prediksi positif yang benar-benar positif dan dihitung sebagai jumlah _True Positives_ dibagi dengan jumlah _True Positives_ dan _False Positives_. _Precision_ penting ketika kita ingin meminimalisir _False Positives_
 
 - ```Recall```
 
@@ -546,7 +557,7 @@ Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan
   $$Recall = TP / TP + FN$$
 
 
-  Recall mengukur proporsi positif aktual yang diidentifikasi dengan benar dan dihitung sebagai jumlah True Positives dibagi dengan jumlah True Positives dan False Negatives.
+  _Recall_ mengukur proporsi positif aktual yang diidentifikasi dengan benar dan dihitung sebagai jumlah _True Positives_ dibagi dengan jumlah _True Positives_ dan _False Negatives_. _Recall_ penting ketika biaya dari _False Negative_ tinggi, seperti di kasus medis atau keamanan.
 
 - ```F1 Score```
 
@@ -554,9 +565,30 @@ Kemudian, berikut ini terkait ```Accuracy```, ```Precision```, ```Recall```, dan
   $$F1 Score = Precision  .  Recall / Precision + Recall$$
 
   
-  F1 Score adalah rata-rata harmonik dari presisi dan recall, memberikan keseimbangan antara keduanya, terutama ketika ada distribusi kelas yang tidak seimbang.
+  F1 Score adalah rata-rata harmonik dari presisi dan recall, memberikan keseimbangan antara keduanya, terutama ketika ada distribusi kelas yang tidak seimbang. _F1 Score_ berguna ketika kita membutuhkan keseimbangan antara _presisi_ dan _recall_, dan ketika distribusi kelas tidak seimbang.
 
-  Berikut ini adalah hasil evaluasi model menggunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari Confusion Matrix:
+Berikut ini adalah hasil evaluasi model menggunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari _Confusion Matrix_:
+
+Berikut ini adalah ```Accuracy``` dengan menggunakan _dataset_ `test`:
+
+```python
+best_model = grid_search.best_estimator
+y_pred = best_model.predict(X_test)
+accuracy = metrics.accuracy_score(y_test, y_pred)
+print(f"Test Accuracy: {accuracy}")
+
+```
+
+Berikut ini adalah hasilnya:
+
+```python
+Test Accuracy: 0.596045197740113
+```
+
+Berikut ini adalah Visualisasi dari ```Confusin Matrix```:
+
+
+
 
 ## Referensi
 
