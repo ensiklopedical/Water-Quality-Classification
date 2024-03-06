@@ -13,21 +13,21 @@ _machine learning_ dapat memastikan keamanan konsumsi air karena dapat mendeteks
 Angka konsumsi air minum yang tidak layak di Indonesia masih tinggi. Maka dari itu, dibutuhkannya pengembangan model _machine learning_ untuk mengklasifikasikan kualitas air minum sebagai sarana untuk membantu dan memastikan apakah air minum yang ingin dikonsumsi layak atau tidak. Salah satu manfaat dari adanya model klasifikasi kualitas air ini adalah model ini dapat digunakan oleh pemerintah atau pihak perusahaan air minum untuk memastikan apakah air yang mereka distibrusikan layak untuk diminum atau tidak. Oleh karena itu, dengan melakukan pengecekan kualitas air minum, konsumen atau masyarakat luas dapat terhindar dari konsumsi air tidak layak minum yang dapat menyebabkan berbagai masalah kesehatan.
 
 ### Problem Statements
-- Berdasarkan eksplorasi terhadap dataset, fitur-fitur apa saja yang dapat menentukan atau memberi pengaruh terhadap klasifikasi layak atau tidaknya air minum?
-- Bagaimana memproses dataset agar dapat digunakan untuk pembuatan model machine learning klasifikasi kualitas air minum?
+- Berdasarkan eksplorasi terhadap _dataset_, fitur-fitur apa saja yang dapat menentukan atau memberi pengaruh terhadap klasifikasi layak atau tidaknya air minum?
+- Bagaimana memproses _dataset_ agar dapat digunakan untuk pembuatan model _machine learning_ klasifikasi kualitas air minum?
 - Bagaimana cara medapatkan model klasifikasi kuaitas air minum dengan performa terbaik?
 
 
 ### Goals
-- Melakukan eksplorasi semua fitur-fitur yang terdapat pada dataset dan melihat fitur-fitur mana saja yang memiliki pengaruh besar atau memiliki korelasi tinggi terhadap label klasifikasi air.
-- Melakukan data preparation untuk mempersiapkan model untuk proses training.
-- Melakukan proses training dengan baseline model dari berbagai algoritma dan menggunakan baseline model dengan performa terbaik untuk melakukan tuning hyperparameter.
-
+- Melakukan eksplorasi semua fitur-fitur yang terdapat pada _dataset_ dan melihat fitur-fitur mana saja yang memiliki pengaruh besar atau memiliki korelasi tinggi terhadap label klasifikasi air.
+- Melakukan _data preparation_ untuk mempersiapkan model untuk proses training.
+- Melakukan proses _training_ dengan _baseline model_ dari berbagai algoritma dan menggunakan baseline model dengan performa terbaik untuk melakukan _hyperparameter tuning_.
+_
 
 ### Solution statements
-- Untuk melakukan eksplorasi fitur dilakukan analisis univariat dan multivariat untuk menemukan hubungan antar fitur baik data numerik maupun data kategorikal. Kemudian, menggunakan barchart, heatmap, dan correlation matrix untuk medapatkan informasi lebih lanjut
-- Untuk mendapatkan data yang bersih untuk diproses ke tahap modelling, dilakukannya proses data preparation yang terdiri dari data cleaning, train test split, dan data transformation. Kebersihan data dapat mempengaruhi performa model yang akan dibuat.
-- Untuk mendapatkan model dengan performa terbaik, digunakan 3 algoritma sebagai baseline model, yaitu KNN, SVM, dan Random Forest. Kemudian, untuk dapat mengetahui baseline model mana yang memiliki performa terbaik dapat dilakukan evaluasi menggunakan Confusion Matrix (Accuracy, Precision, Recall, F1 Score) yang juga divisualisasikan. Selanjutnya, model yang terpilih akan dibantu dengan grid search untuk menemukan hyperparameter yang memiliki performa terbaik. Terakhir, model tersebut dilakukan evaluasi menggunakan Confusion Matrix (Accuracy, Precision, Recall, F1 Score).
+- Untuk melakukan eksplorasi fitur dilakukan analisis univariat dan multivariat untuk menemukan hubungan antar fitur baik data numerik maupun data kategorikal. Kemudian, menggunakan _barchart_, _heatmap_, dan _correlation matrix_ untuk medapatkan informasi lebih lanjut
+- Untuk mendapatkan data yang bersih untuk diproses ke tahap _modelling_, dilakukannya proses _data preparation_ yang terdiri dari _data cleaning, train test split, dan data transformation_. Kebersihan data dapat mempengaruhi performa model yang akan dibuat.
+- Untuk mendapatkan model dengan performa terbaik, digunakan 3 algoritma sebagai _baseline model_, yaitu `KNN`, `SVM`, dan `Random Forest`. Kemudian, untuk dapat mengetahui _baseline model_ mana yang memiliki performa terbaik dapat dilakukan evaluasi menggunakan _Confusion Matrix (Accuracy, Precision, Recall, F1 Score)_ yang juga divisualisasikan. Selanjutnya, model yang terpilih akan dibantu dengan _grid search_ untuk menemukan _hyperparameter_ yang memiliki performa terbaik. Terakhir, model tersebut dilakukan evaluasi menggunakan _Confusion Matrix (Accuracy, Precision, Recall, F1 Score)_.
 
   
 # Data Undestanding
@@ -492,21 +492,12 @@ print(f"Best cross-validation score (accuracy): {best_score}")
 
 Berikut ini adalah hasil dari grid search:
 ```python
-
+Fitting 3 folds for each of 225 candidates, totalling 675 fits
+Best parameters: {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 300}
+Best cross-validation score (accuracy): 0.563730406107422
 ```
 
-Selanjutnya, dilakukan menggunakan dataset test untuk menguji performa model terhadap data yang belum dilihat:
-```python
-best_model = grid_search.best_estimator
-y_pred = best_model.predict(X_test)
-accuracy = metrics.accuracy_score(y_test, y_pred)
-print(f"Test Accuracy: {accuracy}")
-```
-
-Berikut ini adalah hasil dari pengujian dengan dataset test:
-```python
-
-```
+Hasil tersebut digunakan sebagai hyperparameter pembangunan model.
 
 # Evaluation
 Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dilakukan evaluasi untuk melihat performa dari model tersebut. Untuk melakukan proses evaluasi model klasifikasi biner digunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari Confusion Matrix.
