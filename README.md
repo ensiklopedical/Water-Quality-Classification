@@ -553,9 +553,17 @@ Kemudian, _baseline model_ dari ketiga algoritma tersebut yang memiliki akurasi 
 
 Berikut ini adalah hasil dari _baseline model_ untuk ketiga model:
 
+|     |       train |        test |
+|:----|------------:|------------:|
+| KNN | 0.000716   | 0.000531 |
+| SVM | 0.00052 | 0.000523 |
+| RF  | 0.001      | 0.000607  |
+
 ![Baseline Model](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/547406d3-e843-4bde-97b8-1299c5e15e8f)
+<div align="center">Gambar 6a - Baseline Model Train Test Results</div>
 
 ![All Matrix)](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/cd8e6c64-e211-4f9f-ab72-32d021057a18)
+<div align="center">Gambar 6b - Baseline Model All Results</div>
 
 
 Model ```Random Forest``` terpilih sebagai model yang akan digunakan lebih lanjut dengan hyperparamter tuning karena memiliki performa ```train``` dan ```test``` yang tertinggi dibandingkan dengan 2 model lainnya. Kemudian, hasil `Accuracy`, `Precision`, `Recall`, dan `F1 Score` dari `Random Forest` juga menunjukkan hasil yang terbaik.
@@ -615,8 +623,9 @@ Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dila
 
 
 ![ConfusionMatrix2](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/af0d71ed-f630-4147-838e-77c2dae31f4e)
+<div align="center">Gambar 7a - Confusion Matrix</div>
 
-
+<br>
 
 _Confusion Matrix_ adalah tabel yang digunakan untuk mengevaluasi performa model klasifikasi. Ini adalah tabel yang menunjukkan jumlah prediksi yang benar dan salah yang dibuat oleh model dengan membaginya ke dalam empat kategori:
 
@@ -689,6 +698,9 @@ Hasil diatas menujukkan bahwa `Accuracy` model menggunakan dataset `test` sebesa
 Berikut ini adalah Visualisasi dari ```Confusin Matrix```:
 
 ![Confusin Matrix - Final](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/048cfb51-fc9e-489f-a3ab-86311475eec6)
+<div align="center">Gambar 7b - Confusion Matrix Results</div>
+
+<br>
 
 Berdasarkan visualisasi data diatas, hasilnya dapat dirincikan sebagai berikut:
 - True Positive (TP): 124
