@@ -208,10 +208,6 @@ Berikut ini adalah EDA yang dilakukan:
 _Data Preparation_ adalah proses pembersihan, transformasi, dan pengorganisasian data mentah ke dalam format yang dapat dipahami oleh algoritma pembelajaran mesin. Berikut ini adalah **urutan** langkah-langkah Data Preparation yang dilakukan beserta penjelasan dan alasannya:
 
 - _Data Cleaning_
-
-  ```python
-
-  ```
   
   _Data cleaning_ adalah adalah langkah penting dalam proses Machine Learning karena melibatkan identifikasi dan penghapusan data yang hilang, duplikat, atau tidak relevan yang terdapat pada dataset. Proses ini memiliki berbagai langkah yang perlu dilakukan supaya dataset siap digunakan untuk pembangunan model Machine Learning.
     
@@ -476,36 +472,91 @@ Pada bagian ini, data yang yang sudah dibagi menjadi dua bagian menjadi _trainin
 - Random Forest
   - Kelebihan
     - Akurasi tinggi
+      
+      Dengan menggunakan banyak pohon keputusan, Random Forest dapat mencapai tingkat akurasi yang tinggi dalam klasifikasi dan regresi.
+      
     - Dapat menangani data dengan dimensi tinggi
-    - _Robust_ terhadap _noise_ dan _outliers_
+      
+      Mampu menangani masalah dengan sejumlah besar fitur dan data tanpa perlu pemilihan fitur.
+      
+    - _Robust_ terhadap _noise_ dan _outliers
+      
+      Tidak mudah dipengaruhi oleh noise dan outliers karena menggunakan metode bagging dan ensemble.
+      
   - Kekurangan
     - Mahal secara komputasi
+      
+      Membutuhkan lebih banyak sumber daya komputasi karena melibatkan pembangunan banyak pohon.
+      
     - Butuh waktu lebih lama
+      
+      Proses pembelajaran dan prediksi bisa memakan waktu yang lama karena kompleksitas model.
+      
     - Interpretabilitas
+      
+      Sulit untuk diinterpretasikan dan dipahami karena kompleksitas dari banyak pohon keputusan.
+      
 - KNN
   - Kelebihan
     - Sederhana dan Mudah Dipahami
+      
+      Algoritma ini intuitif dan mudah diimplementasikan.
+    
     - Non-parametric
+      
+      Tidak membuat asumsi tentang distribusi data, cocok untuk data yang tidak normal.
+      
     - Tidak perlu pelatihan
+      
+      Tidak ada fase pelatihan yang eksplisit, yang berarti baru pada saat prediksi data diuji
+      
   - Kekurangan
     - Sensitif terhadap _outliers_
+      
+      Kinerja bisa terpengaruh oleh keberadaan outliers.
+      
     - Mahal secara komputasi
+      
+      Memerlukan perhitungan jarak dari setiap titik data ke titik lainnya, yang bisa sangat mahal secara komputasi.
+    
     - Memerlukan pilihan K yang baik
+      
+      Pemilihan jumlah tetangga (K) yang tepat sangat penting untuk kinerja algoritma.
+      
 - SVM
   - Kelebihan
     - Efektif untuk data dengan dimensi tinggi
+      
+       Bekerja dengan baik pada data yang memiliki banyak fitur.
+      
     - Serbaguna
+      
+      Kernel yang berbeda dapat digunakan untuk keputusan batas yang berbeda.
+      
     - Robust
+      
+      Tidak terlalu dipengaruhi oleh outliers dan mampu menghasilkan model yang optimal dengan margin yang maksimal.
+      
   - Kekurangan
     - Sensitif terhadap pilihan Kernel
+      
+      Pemilihan kernel yang tepat sangat penting dan bisa mempengaruhi kinerja model.
     - Membutuhkan penyetelan Hyperparameter
+    
+      Penyetelan hyperparameter seperti C, gamma, dan kernel memerlukan waktu dan usaha.
+    
     - _Training Cost_
+      
+      Biaya pelatihan bisa tinggi, terutama untuk dataset yang besar.
 
 Kemudian, _baseline model_ dari ketiga algoritma tersebut yang memiliki akurasi tertinggi digunakan untuk ke tahap selanjutnya. Selanjutnya, algoritma tersebut digunakan kembali untuk pembangunan model, tetapi dengan memanfaatkan _hyperparameter_ yang ada sehingga mendapatkan hasil terbaik. Untuk menemukan _hyperparamter_ yang memberikan hasil terbaik, ```GridSearch``` digunakan ke model yang terpilih.
 
 Berikut ini adalah hasil dari _baseline model_ untuk ketiga model:
 
-Gambar
+![Baseline Model](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/547406d3-e843-4bde-97b8-1299c5e15e8f)
+
+![All Matrix)](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/cd8e6c64-e211-4f9f-ab72-32d021057a18)
+
 
 Model ```Random Forest``` terpilih sebagai model yang akan digunakan lebih lanjut dengan hyperparamter tuning karena memiliki performa ```train``` dan ```test``` yang tertinggi dibandingkan dengan 2 model lainnya. Kemudian, hasil `Accuracy`, `Precision`, `Recall`, dan `F1 Score` dari `Random Forest` juga menunjukkan hasil yang terbaik.
 
@@ -531,11 +582,32 @@ print(f"Best cross-validation score (accuracy): {best_score}")
 Berikut ini adalah hasil dari _grid search_:
 ```python
 Fitting 3 folds for each of 225 candidates, totalling 675 fits
-Best parameters: {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 300}
-Best cross-validation score (accuracy): 0.563730406107422
+Best parameters: {'max_depth': 10, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 400}
+Best cross-validation score (accuracy): 0.5984355001430486
 ```
+Berdasarkan hasil dari proses `GridSearch`, kombinasi parameter yang terbaik adalah:
 
-Hasil tersebut digunakan sebagai _hyperparameter_ pembangunan model.
+  - `max_depth`: 10
+  - `min_samples_leaf`: 2
+  - `min_samples_split`: 5,
+  - `n_estimators`: 400
+
+Berikut ini adalah penjelasan dari keempat parameter tersebut:
+
+  - `max_depth`: 10
+    Ini menentukan kedalaman maksimum pohon. Dalam kasus ini, pohon tidak akan tumbuh lebih dari 10 tingkat. Kedalaman yang lebih besar bisa meningkatkan keakuratan model tetapi juga meningkatkan risiko overfitting.
+    
+  - `min_samples_leaf`: 2
+    Ini adalah jumlah sampel minimum yang diperlukan untuk menjadi daun pohon. Jadi, setiap daun harus memiliki setidaknya 2 sampel. Parameter ini membantu mengontrol overfitting dengan memastikan bahwa daun tidak terlalu spesifik hanya pada sampel pelatihan.
+    
+  - `min_samples_split`: 5,
+    Ini menunjukkan jumlah sampel minimum yang diperlukan untuk membagi simpul internal. Sebuah simpul akan dibagi jika memiliki 5 atau lebih sampel. Ini juga membantu mencegah overfitting dengan memastikan bahwa pembagian tidak terlalu spesifik.
+    
+  - `n_estimators`: 400
+    Ini menunjukkan jumlah pohon dalam forest. Di sini, model akan menggunakan 400 pohon. Biasanya, semakin banyak pohon, semakin stabil prediksi model, tetapi juga akan membutuhkan lebih banyak waktu komputasi dan memori.
+    
+
+Hasil dari `GridSearc` tersebut digunakan sebagai _hyperparameter_ pembangunan model.
 
 # Evaluation
 Ketika model sudah dibangun dan sudah melakukan uji dengan data test, perlu dilakukan evaluasi untuk melihat performa dari model tersebut. Untuk melakukan proses evaluasi model klasifikasi biner digunakan metrik ```Accuracy```, ```Precision```, ```Recall```, dan ```F1 Score``` dari _Confusion Matrix_.
@@ -609,12 +681,52 @@ print(f"Test Accuracy: {accuracy}")
 Berikut ini adalah hasilnya:
 
 ```python
-Test Accuracy: 0.596045197740113
+Test Accuracy: 0.6101694915254238
 ```
+
+Hasil diatas menujukkan bahwa `Accuracy` model menggunakan dataset `test` sebesar 61%. Hasilnya lebih besar dibandingkan dengan baseline model dari `Random Forest` tanpa hyperparameter tuning.
 
 Berikut ini adalah Visualisasi dari ```Confusin Matrix```:
 
+![Confusin Matrix - Final](https://github.com/ensiklopedical/Water-Quality-Classification/assets/115972304/048cfb51-fc9e-489f-a3ab-86311475eec6)
 
+Berdasarkan visualisasi data diatas, hasilnya dapat dirincikan sebagai berikut:
+- True Positive (TP): 124
+- True Negative (TN): 92
+- False Positive (FP): 84
+- False Negative (FN): 54
+
+Berikut ini adalah laporan lengkap terkait evaluasi model dengan metrik lainnya yang juga digunakan:
+
+```python
+accuracy = metrics.accuracy_score(y_test, y_pred)
+precision = metrics.precision_score(y_test, y_pred, average='weighted')
+recall = metrics.recall_score(y_test, y_pred, average='weighted')
+f1 = metrics.f1_score(y_test, y_pred, average='weighted')
+
+classification_report = metrics.classification_report(y_test, y_pred)
+print(f"Classification Report :\n{classification_report}")
+```
+
+Berikut ini adalah hasil dari kode diatas:
+
+```python
+Classification Report :
+              precision    recall  f1-score   support
+
+           0       0.60      0.70      0.64       178
+           1       0.63      0.52      0.57       176
+
+    accuracy                           0.61       354
+   macro avg       0.61      0.61      0.61       354
+weighted avg       0.61      0.61      0.61       354
+````
+
+Berdasarkan output diatas, berikut ini adalah hasil akhir dari model yang dibangun dengan algoritma `Random Forest` dengan hyperparameter tuning:
+- `Accuracy` : 0.61
+- `Precision`: 0.61
+- `Recall`: 0.61
+- `F1-Score`: 0.61
 
 
 ## Referensi
